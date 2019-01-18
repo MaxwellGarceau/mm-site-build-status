@@ -123,9 +123,14 @@ class MM_Site_Build_Status {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-mm-site-build-status-public.php';
 
 		/**
-		 * The class responsible for the maintenance mode logic
+		 * The class responsible for determining the maintenance mode logic
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mm-site-build-status-maintenance-mode.php';
+
+		/**
+		 * The class responsible for the maintenance mode general options
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-mm-site-build-status-general-settings.php';
 
 		$this->loader = new MM_Site_Build_Status_Loader();
 
@@ -158,9 +163,16 @@ class MM_Site_Build_Status {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new MM_Site_Build_Status_Admin( $this->get_mm_site_build_status(), $this->get_version() );
+		$general_settings = new MM_Site_Build_Status_General_Settings( $this->get_mm_site_build_status(), $this->get_version() );
 
+		// Plugin Admin
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'load_admin_menu' );
+
+		// General Settings
+		$this->loader->add_action( 'admin_init', $general_settings, 'mm_general_settings' );
+		// $this->loader->add_action( 'admin_init', $general_settings, 'mm_define_site_build_stages_empty_input' );
 
 	}
 
@@ -180,7 +192,7 @@ class MM_Site_Build_Status {
 
 		$maintenance_mode = new MM_Site_Build_Status_Maintenance_Mode( $this->get_mm_site_build_status(), $this->get_version() );
 
-		$this->loader->add_action( 'get_header', $maintenance_mode, 'determine_maintenance_mode' );
+		$this->loader->add_filter( 'template_include', $maintenance_mode, 'determine_maintenance_mode' );
 
 	}
 

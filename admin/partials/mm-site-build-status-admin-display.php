@@ -14,3 +14,15 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+
+<h1>Maintenance Mode with Site Build Status</h1>
+
+<?php settings_errors();?>
+
+<form class="mm-site-build-form general" method="post" action="options.php">
+
+  <?php settings_fields('mm-settings-general');?>
+  <?php do_settings_sections('maintenance-mode-site-build-status');?>
+  <?php submit_button();?>
+
+</form>

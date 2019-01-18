@@ -15,3 +15,9 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+
+<?php
+  include_once 'template-parts/header.php';
+  include_once 'templates/mm-basic.php';
+  include_once 'template-parts/footer.php';
+?>

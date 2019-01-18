@@ -98,6 +98,62 @@ class MM_Site_Build_Status_Admin {
 
 		wp_enqueue_script( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'js/mm-site-build-status-admin.js', array( 'jquery' ), $this->version, false );
 
+    // Create an instance of MM_Site_Build_Status_General_Settings and localize the empty input HTML for JavaScript
+		$mm_site_build_status_general_settings = new MM_Site_Build_Status_General_Settings;
+
+    $general_settings_translation_array = array(
+      'empty_input' => $mm_site_build_status_general_settings->mm_define_site_build_stages_empty_input(),
+      'remove_button' => $mm_site_build_status_general_settings->mm_define_site_build_stages_remove_button()
+    );
+    wp_localize_script( $this->mm_site_build_status, 'site_build_stage', $general_settings_translation_array );
+
+	}
+
+	// Source: https://blog.idrsolutions.com/2014/06/wordpress-plugin-part-1/
+	public function load_admin_menu() {
+
+		/**
+		 * Adds the admin menu into WordPress Backend
+		 *
+		 * An instance of this class should be passed to the run() function
+		 * defined in MM_Site_Build_Status_Loader as all of the hooks are defined
+		 * in that particular class.
+		 *
+		 * The MM_Site_Build_Status_Loader will then create the relationship
+		 * between the defined hooks and the functions defined in this
+		 * class.
+		 */
+
+    // Main Admin Page
+    $page_title = 'Maintenance Mode with Site Build Status';
+    $menu_title = 'Maintenance Mode';
+    $capability = 'manage_options';
+    $menu_slug  = 'maintenance-mode-site-build-status';
+    $function   = array( $this, 'admin_menu_view' );
+    $icon_url   = '';
+    $position   = 79;
+
+    add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position);
+
+    add_submenu_page( $menu_slug, 'General '.$page_title, 'General', $capability, $menu_slug, $function );
+
+	}
+ 
+	public function admin_menu_view(){
+
+		/**
+		 * Provides the admin menu view
+		 *
+		 * An instance of this class should be passed to the run() function
+		 * defined in MM_Site_Build_Status_Loader as all of the hooks are defined
+		 * in that particular class.
+		 *
+		 * The MM_Site_Build_Status_Loader will then create the relationship
+		 * between the defined hooks and the functions defined in this
+		 * class.
+		 */
+
+	   require_once plugin_dir_path( dirname( __FILE__ ) ) . '/admin/partials/mm-site-build-status-admin-display.php';
 	}
 
 }
