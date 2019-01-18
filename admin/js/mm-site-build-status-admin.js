@@ -55,7 +55,12 @@
 
 			// Add remove button to last input
 			var removeButton = site_build_stage.remove_button;
-			$( removeButton ).on( 'click', removeSiteBuildStage ).insertAfter( $( '.site-build-stage' ).last().find( 'input' ) );
+			var newSiteBuildStage = $( '.site-build-stage' ).last();
+			var newSiteBuildStageInput = newSiteBuildStage.find( 'input' );
+
+			// Add name attribute for WordPress admin get_option() value
+			newSiteBuildStageInput.attr('name', 'define_site_build_stages[]');
+			$( removeButton ).on( 'click', removeSiteBuildStage ).insertAfter( newSiteBuildStageInput );
 
 			// Insert empty input before "Add Stage" button
 			var emptyInput = site_build_stage.empty_input;
