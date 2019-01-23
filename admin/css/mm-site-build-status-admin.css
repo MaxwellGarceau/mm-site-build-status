@@ -2,3 +2,38 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+/*** Color Pallete ***/
+/** Layout Variables **/
+/* Responsive Mixins */
+/* Positioning */
+/* Margin/Padding Mixins */
+/* Styling */
+/* Animation */
+/* Screen Reader Mixins */
+/* Source: https://github.com/engageinteractive/core/blob/master/src/scss/utility/_mixins.scss */
+/* Utility Mixins */
+.remove-site-build-stage {
+  font-size: 20px;
+  cursor: pointer; }
+
+.mm-site-build-status-page-heading {
+  margin-bottom: 1.5em;
+  font-size: 28px; }
+
+.site-build-stage {
+  display: flex;
+  align-items: center; }
+  .site-build-stage * {
+    margin-left: 3px;
+    margin-right: 3px; }
+    .site-build-stage *:first-child {
+      margin-left: 0; }
+    .site-build-stage *:last-child {
+      margin-right: 0; }
+  .site-build-stage .remove-site-build-stage {
+    margin-left: 5px; }
+
+.define-site-build-stages-container .add-site-build-stage {
+  margin-top: 5px; }
+
+/*# sourceMappingURL=mm-site-build-status-admin.css.map */

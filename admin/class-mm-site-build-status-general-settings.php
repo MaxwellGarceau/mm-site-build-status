@@ -8,6 +8,10 @@ class MM_Site_Build_Status_General_Settings {
     $this->on_off = 'on_off';
   }
 
+  /*--------------------------------------------------------------
+  ## Register Settings
+  --------------------------------------------------------------*/
+
   public function mm_general_settings() {
     $menu_slug  = 'maintenance-mode-site-build-status';
     $section = 'mm-general-options';
@@ -29,11 +33,19 @@ class MM_Site_Build_Status_General_Settings {
     echo 'Customize your general settings.';
   }
 
+  /*--------------------------------------------------------------
+  ## On/Off
+  --------------------------------------------------------------*/
+
   public function mm_on_off() {
     $options = get_option( $this->on_off );
     $checked = ( @$options == 1 ? 'checked' : '' );
     echo '<label><input type="checkbox" name="' . $this->on_off . '" value="1" '.$checked.' /> </label>';
   }
+
+  /*--------------------------------------------------------------
+  ## Site Build Stages
+  --------------------------------------------------------------*/
 
   public function mm_define_site_build_stages() {
     $options = get_option( $this->define_site_build_stages );
@@ -42,17 +54,19 @@ class MM_Site_Build_Status_General_Settings {
       $options = array( $options );
     }
 
+    echo '<div class="define-site-build-stages-container">';
+
     foreach ( $options as $key => $option ) {
-      echo $this->mm_define_site_build_stages_filled_input( $option );
+      echo '<div class="site-build-stage">';
+      echo $this->mm_define_site_build_stages_filled_input( $option['name'], $key );
+      echo $this->mm_define_site_build_progress( $option['progress'], $key );
+      echo $this->mm_define_site_build_stages_remove_button();
+      echo '</div>';
     }
 
     echo $this->mm_define_site_build_stages_empty_input();
-    echo '<button class="add-site-build-stage">Add Stage</button>';
-  }
-
-  public function mm_define_site_build_stages_get_option_name() {
-    // This HTML is sent to JavaScript and used to create a new remove button when "Add Stage" is clicked
-    return 'define_site_build_stages';
+    echo '<button class="add-site-build-stage button button-primary">Add Stage</button>';
+    echo '</div>';
   }
 
   public function mm_define_site_build_stages_empty_input() {
@@ -66,16 +80,16 @@ class MM_Site_Build_Status_General_Settings {
 
   public function mm_define_site_build_stages_remove_button() {
     // This HTML is sent to JavaScript and used to create a new remove button when "Add Stage" is clicked
-    return '<span class="remove-site-build-stage">-</span>';
+    return '<span class="remove-site-build-stage">
+      <i class="fas fa-times"></i>
+      </span>';
   }
 
-  public function mm_define_site_build_stages_filled_input( $option ) {
-      return '<div class="site-build-stage">
+  public function mm_define_site_build_stages_filled_input( $option, $key ) {
+      return '
         <label>
-          <input type="text" name="' . $this->define_site_build_stages . '[]" value="' . $option . '"/>' .
-          $this->mm_define_site_build_stages_remove_button() .
-        '</label>
-        </div>';
+          <input type="text" name="' . $this->define_site_build_stages . '[' . $key . '][name]" value="' . $option . '"/>
+        </label>';
   }
 
   public function define_site_build_stages_validation( $site_build_stages ) {
@@ -91,6 +105,40 @@ class MM_Site_Build_Status_General_Settings {
 
     // Return output array
     return $output;
+  }
+
+  /*--------------------------------------------------------------
+  ## Site Build Progress
+  --------------------------------------------------------------*/
+
+  public function mm_define_site_build_progress( $option = 'pending', $key = '' ) {
+
+    // Coded so that the $progress_states array can be dynamically generated and users can define their own progress states
+    $progress_states = [
+      [
+        'value' => 'pending',
+        'name' => 'Pending'
+      ],
+      [
+        'value' => 'in-progress',
+        'name' => 'In Progress'
+      ],
+      [
+        'value' => 'completed',
+        'name' => 'Completed'
+      ],
+    ];
+
+      $output = '<select name="' . $this->define_site_build_stages . '[' . $key . '][progress]" value="' . $option . '" selected="in-progress">';
+
+      foreach( $progress_states as $progress_state ) {
+        $selected = $progress_state['value'] == $option ? ' selected' : '';
+
+        $output .= '<option value="' . $progress_state['value'] . '"' . $selected . '>' . $progress_state['name'] . '</option>';
+      }
+
+      $output .= '</select>';
+      return $output;
   }
 
 }

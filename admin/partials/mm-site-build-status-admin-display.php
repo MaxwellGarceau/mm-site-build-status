@@ -15,7 +15,7 @@
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
-<h1>Maintenance Mode with Site Build Status</h1>
+<h1 class="mm-site-build-status-page-heading">Maintenance Mode with Site Build Status</h1>
 
 <?php settings_errors();?>
 

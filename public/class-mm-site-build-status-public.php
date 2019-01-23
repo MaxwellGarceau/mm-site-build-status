@@ -51,6 +51,7 @@ class MM_Site_Build_Status_Public {
 
 		$this->mm_site_build_status = $mm_site_build_status;
 		$this->version = $version;
+		$this->load_custom_includes();
 
 	}
 
@@ -72,6 +73,9 @@ class MM_Site_Build_Status_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+
+		// Font Awesome
+		wp_enqueue_style( 'font-awesome', 'https://use.fontawesome.com/releases/v5.6.3/css/all.css', array(), $this->version, 'all' );
 
 		wp_enqueue_style( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'css/mm-site-build-status-public.css', array(), $this->version, 'all' );
 
@@ -98,6 +102,16 @@ class MM_Site_Build_Status_Public {
 
 		wp_enqueue_script( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'js/mm-site-build-status-public.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function load_custom_includes() {
+
+		/**
+		 * Loads custom PHP functionality
+		 */
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/includes/helper-functions.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/includes/determine-status-icon.php';
 	}
 
 }

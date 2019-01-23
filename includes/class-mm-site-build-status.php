@@ -170,9 +170,11 @@ class MM_Site_Build_Status {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'load_admin_menu' );
 
+		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->mm_site_build_status . '.php' );
+		$this->loader->add_filter( 'plugin_action_links_' . $plugin_basename, $plugin_admin, 'add_settings_link_to_plugin_menu' );
+
 		// General Settings
 		$this->loader->add_action( 'admin_init', $general_settings, 'mm_general_settings' );
-		// $this->loader->add_action( 'admin_init', $general_settings, 'mm_define_site_build_stages_empty_input' );
 
 	}
 

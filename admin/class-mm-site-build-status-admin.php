@@ -50,6 +50,7 @@ class MM_Site_Build_Status_Admin {
 	public function __construct( $mm_site_build_status, $version ) {
 
 		$this->mm_site_build_status = $mm_site_build_status;
+		$this->mm_admin_url = 'maintenance-mode-site-build-status';
 		$this->version = $version;
 
 	}
@@ -72,6 +73,9 @@ class MM_Site_Build_Status_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+
+		// Font Awesome
+		wp_enqueue_style( 'font-awesome', 'https://use.fontawesome.com/releases/v5.6.3/css/all.css', array(), $this->version, 'all' );
 
 		wp_enqueue_style( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'css/mm-site-build-status-admin.css', array(), $this->version, 'all' );
 
@@ -103,10 +107,19 @@ class MM_Site_Build_Status_Admin {
 
     $general_settings_translation_array = array(
       'empty_input' => $mm_site_build_status_general_settings->mm_define_site_build_stages_empty_input(),
-      'remove_button' => $mm_site_build_status_general_settings->mm_define_site_build_stages_remove_button()
+      'remove_button' => $mm_site_build_status_general_settings->mm_define_site_build_stages_remove_button(),
+      'progress_select' => $mm_site_build_status_general_settings->mm_define_site_build_progress()
     );
     wp_localize_script( $this->mm_site_build_status, 'site_build_stage', $general_settings_translation_array );
 
+	}
+
+	// Source: https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
+	public function add_settings_link_to_plugin_menu( $links ) {
+		$mylinks = array(
+			'<a href="' . admin_url( 'options-general.php?page=' . $this->mm_admin_url ) . '">Settings</a>',
+		);
+		return array_merge( $links, $mylinks );
 	}
 
 	// Source: https://blog.idrsolutions.com/2014/06/wordpress-plugin-part-1/
