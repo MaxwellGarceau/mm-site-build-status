@@ -1,0 +1,19 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+// Base
+@import './base/settings';
+@import './base/media-queries';
+@import './base/functions';
+@import './base/mixins';
+@import './base/base';
+
+// Components
+@import './components/layout';
+@import './components/modal';
+@import './components/images';
+@import './components/headings';
+@import './components/tables';
+@import './components/misc';

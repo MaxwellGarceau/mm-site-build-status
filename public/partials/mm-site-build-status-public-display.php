@@ -23,7 +23,7 @@
     <div class="grid-container no-padding">
 
         <div class="grid-100 tablet-grid-100 grid-parent">
-          <div class="main-page-block">
+          <div class="main-page-block fullscreen flex-center">
 
           <?php
             //  locate_template( './templates/mm-basic', true );

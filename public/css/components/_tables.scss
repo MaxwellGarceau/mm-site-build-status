@@ -1,0 +1,52 @@
+$sbs-table-border-color: #EBEBEB;
+$sbs-table-status-text-align: center;
+
+.sbs-table {
+  &__column-title-container {
+
+  }
+
+  &__column-title {
+    display: inline-block;
+    margin-bottom: 10px;
+
+    &.status {
+      text-align: $sbs-table-status-text-align;
+    }
+
+  * {
+    margin: 0;
+  }
+
+    &-skin {
+      border-bottom: solid 1px $pure-black;
+      text-transform: uppercase;
+      font-weight: 200;
+
+      h4 {
+        font-weight: 200;
+      }
+    }
+  }
+
+  &__column-cell-container {
+
+    &.row {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__column-cell {
+    display: inline-block;
+
+    &.status {
+      text-align: $sbs-table-status-text-align;
+      font-size: 32px;
+    }
+  }
+
+  .row {
+    margin: 10px 0;
+  }
+}

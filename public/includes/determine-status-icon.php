@@ -8,5 +8,7 @@ function determine_status_icon( $option ) {
       return '<i class="fas fa-play"></i>';
     case 'completed':
       return '<i class="fas fa-check"></i>';
+    case 'not-started':
+      return '';
   }
 }

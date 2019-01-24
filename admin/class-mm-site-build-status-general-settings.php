@@ -6,6 +6,8 @@ class MM_Site_Build_Status_General_Settings {
     // Class Variables
     $this->define_site_build_stages = 'define_site_build_stages';
     $this->on_off = 'on_off';
+    $this->holding_site = 'holding_site';
+    $this->client_name = 'client_name';
   }
 
   /*--------------------------------------------------------------
@@ -22,11 +24,15 @@ class MM_Site_Build_Status_General_Settings {
     //register_setting($option_group, $option_name, $args = array());
     $option_group = 'mm-settings-general';
     register_setting( $option_group, $this->on_off );
-    register_setting( $option_group, $this->define_site_build_stages, array( $this, 'define_site_build_stages_validation' ) );
+    register_setting( $option_group, $this->client_name );
+    register_setting( $option_group, $this->define_site_build_stages, array( $this, 'mm_define_site_build_stages_validation' ) );
+    register_setting( $option_group, $this->holding_site, array( $this, 'mm_holding_site_validation' ) );
 
     //add_settings_field( $id, $title, $callback, $page, $section, $args );
     add_settings_field( $this->on_off, 'On/Off', array( $this, 'mm_on_off' ), $menu_slug, $page );
+    add_settings_field( $this->client_name, 'Client Name', array( $this, 'mm_client_name' ), $menu_slug, $page );
     add_settings_field( $this->define_site_build_stages, 'Define Site Build Stages', array( $this, 'mm_define_site_build_stages' ), $menu_slug, $page );
+    add_settings_field( $this->holding_site, 'Holding Site', array( $this, 'mm_holding_site' ), $menu_slug, $page );
   }
 
   public function mm_general_options() {
@@ -41,6 +47,17 @@ class MM_Site_Build_Status_General_Settings {
     $options = get_option( $this->on_off );
     $checked = ( @$options == 1 ? 'checked' : '' );
     echo '<label><input type="checkbox" name="' . $this->on_off . '" value="1" '.$checked.' /> </label>';
+  }
+
+  /*--------------------------------------------------------------
+  ## Client Name
+  --------------------------------------------------------------*/
+
+  public function mm_client_name() {
+    $client_name = get_option( $this->client_name );
+    echo '<label>
+    <input type="text" value="' . $client_name . '" name="' . $this->client_name . '" />
+    </label>';
   }
 
   /*--------------------------------------------------------------
@@ -92,11 +109,11 @@ class MM_Site_Build_Status_General_Settings {
         </label>';
   }
 
-  public function define_site_build_stages_validation( $site_build_stages ) {
+  public function mm_define_site_build_stages_validation( $site_build_stages ) {
     // Create output array
     $output = array();
 
-    // If a data site build stage input is empty do not save to output array
+    // If a site build stage input is empty do not save to output array
     foreach ( $site_build_stages as $site_build_stage ) {
       if ( !empty( $site_build_stage ) ) {
         $output[] = $site_build_stage;
@@ -127,6 +144,10 @@ class MM_Site_Build_Status_General_Settings {
         'value' => 'completed',
         'name' => 'Completed'
       ],
+      [
+        'value' => 'not-started',
+        'name' => 'Not Started'
+      ],
     ];
 
       $output = '<select name="' . $this->define_site_build_stages . '[' . $key . '][progress]" value="' . $option . '" selected="in-progress">';
@@ -139,6 +160,27 @@ class MM_Site_Build_Status_General_Settings {
 
       $output .= '</select>';
       return $output;
+  }
+
+  /*--------------------------------------------------------------
+  ## Holding Site
+  --------------------------------------------------------------*/
+
+  public function mm_holding_site() {
+    $holding_site = get_option( $this->holding_site );
+    echo '<label>
+      <input type="text" value="' . $holding_site . '" name="' . $this->holding_site . '" />
+      </label>';
+  }
+
+  public function mm_holding_site_validation( $holding_site ) {
+
+    if ( !filter_var( $holding_site, FILTER_VALIDATE_URL ) ) {
+      add_settings_error( 'Holding Site', $this->holding_site, 'Please enter a valid URL');
+      return false;
+    } else {
+      return $holding_site;
+    }
   }
 
 }
