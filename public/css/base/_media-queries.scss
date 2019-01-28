@@ -33,10 +33,3 @@
     @content;
   }
 }
-
-// Misc Media Queries
-@mixin father-son-hide {
-  @media (max-width: #{$father-son-hide}) {
-    @content;
-  }
-}

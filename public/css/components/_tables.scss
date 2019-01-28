@@ -4,6 +4,9 @@ $sbs-table-status-text-align: center;
 .sbs-table {
   &__column-title-container {
 
+    @include tablet-v {
+      display: none;
+    }
   }
 
   &__column-title {
@@ -31,6 +34,12 @@ $sbs-table-status-text-align: center;
 
   &__column-cell-container {
 
+    @include tablet-v {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
     &.row {
       display: flex;
       align-items: center;
@@ -48,5 +57,13 @@ $sbs-table-status-text-align: center;
 
   .row {
     margin: 10px 0;
+
+    @include tablet-v {
+      margin-bottom: 50px;
+
+      &:last-child {
+        margin-bottom: 20px;
+      }
+    }
   }
 }

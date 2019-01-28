@@ -5,22 +5,30 @@ body {
 
 h1 {
   font-size: 36px;
+  font-family: 'Montserrat', sans-serif;
+
+  &.page-title-heading {
+    &:before {
+      content: unset;
+    }
+  }
 }
 
 p, li {
   font-size: 24px;
+  font-family: 'Montserrat', sans-serif;
 }
 
+a {
+  color: $pure-black;
 
-// body.mm-site-build-status {
-//   font-family: 'Montserrat', sans-serif;
-//   font-size: 24px;
+  &:link,
+  &:visited {
+    color: $pure-black;
+  }
 
-//   h1 {
-//     font-size: 36px;
-//   }
-
-//   p, li {
-//     font-size: 24px;
-//   }
-// }
+  &:hover,
+  &:active {
+    color: lighten($pure-black, .2);
+  }
+}

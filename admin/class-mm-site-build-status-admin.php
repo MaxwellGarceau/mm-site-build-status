@@ -139,7 +139,7 @@ class MM_Site_Build_Status_Admin {
 
     // Main Admin Page
     $page_title = 'Maintenance Mode with Site Build Status';
-    $menu_title = 'Maintenance Mode';
+    $menu_title = 'Maintenance';
     $capability = 'manage_options';
     $menu_slug  = 'maintenance-mode-site-build-status';
     $function   = array( $this, 'admin_menu_view' );
@@ -151,7 +151,7 @@ class MM_Site_Build_Status_Admin {
     add_submenu_page( $menu_slug, 'General '.$page_title, 'General', $capability, $menu_slug, $function );
 
 	}
- 
+
 	public function admin_menu_view(){
 
 		/**
