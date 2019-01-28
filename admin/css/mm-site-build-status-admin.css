@@ -12,6 +12,9 @@
 /* Screen Reader Mixins */
 /* Source: https://github.com/engageinteractive/core/blob/master/src/scss/utility/_mixins.scss */
 /* Utility Mixins */
+.wp-core-ui .button-primary {
+  display: block;
+}
 .remove-site-build-stage {
   font-size: 20px;
   cursor: pointer;

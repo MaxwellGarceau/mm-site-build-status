@@ -100,8 +100,10 @@ class MM_Site_Build_Status_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'js/mm-site-build-status-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_media(); // Loads media selector scripts
 
+		wp_enqueue_script( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'js/mm-site-build-status-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->mm_site_build_status . '-media-selector', plugin_dir_url( __FILE__ ) . 'js/mm-site-build-status-media-selector.js', array( 'jquery' ), $this->version, false );
     // Create an instance of MM_Site_Build_Status_General_Settings and localize the empty input HTML for JavaScript
 		$mm_site_build_status_general_settings = new MM_Site_Build_Status_General_Settings;
 

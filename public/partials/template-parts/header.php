@@ -4,9 +4,13 @@
   <?php do_action('wp_head') ?>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body class="mm-site-build-status" style="background-image: url('wp-content/plugins/mm-site-build-status/public/images/stock-image-1.jpg')">
-  <!-- stock-image-2.jpg -->
-  <!-- stock-image-3.jpg -->
+
+<?php
+  $background_image_id = get_option( 'background_image' );
+  $background_image = wp_get_attachment_url( $background_image_id );
+?>
+
+<body class="mm-site-build-status" style="background-image: url(<?php echo $background_image; ?>)">
 <header>
-  
+
 </header>

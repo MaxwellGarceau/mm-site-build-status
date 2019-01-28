@@ -8,6 +8,7 @@ class MM_Site_Build_Status_General_Settings {
     $this->on_off = 'on_off';
     $this->holding_site = 'holding_site';
     $this->client_name = 'client_name';
+    $this->background_image = 'background_image';
   }
 
   /*--------------------------------------------------------------
@@ -27,12 +28,14 @@ class MM_Site_Build_Status_General_Settings {
     register_setting( $option_group, $this->client_name );
     register_setting( $option_group, $this->define_site_build_stages, array( $this, 'mm_define_site_build_stages_validation' ) );
     register_setting( $option_group, $this->holding_site, array( $this, 'mm_holding_site_validation' ) );
+    register_setting( $option_group, $this->background_image );
 
     //add_settings_field( $id, $title, $callback, $page, $section, $args );
     add_settings_field( $this->on_off, 'On/Off', array( $this, 'mm_on_off' ), $menu_slug, $page );
     add_settings_field( $this->client_name, 'Client Name', array( $this, 'mm_client_name' ), $menu_slug, $page );
     add_settings_field( $this->define_site_build_stages, 'Define Site Build Stages', array( $this, 'mm_define_site_build_stages' ), $menu_slug, $page );
     add_settings_field( $this->holding_site, 'Holding Site', array( $this, 'mm_holding_site' ), $menu_slug, $page );
+    add_settings_field( $this->background_image, 'Background Image', array( $this, 'mm_background_image' ), $menu_slug, $page );
   }
 
   public function mm_general_options() {
@@ -180,6 +183,37 @@ class MM_Site_Build_Status_General_Settings {
       return false;
     } else {
       return $holding_site;
+    }
+  }
+
+  /*--------------------------------------------------------------
+  ## Background Image
+  --------------------------------------------------------------*/
+
+  // Source: https://wordpress.stackexchange.com/questions/235406/how-do-i-select-an-image-from-media-library-in-my-plugin
+  public function mm_background_image() {
+    $image_id = get_option( $this->background_image );
+    if ( intval( $image_id ) > 0 ) { // Loads image if option is selected
+      $image = wp_get_attachment_image( $image_id, 'medium', false, array( 'id' => 'mm-preview-image' ) );
+    } else { // Default image
+      $image = '<img id="mm-preview-image" width="200" height="300" src="' . plugin_dir_url( __FILE__ ) . 'images/stock-image-1.jpg" />';
+    }
+
+     echo $image;
+     echo '<input type="hidden" name="' . $this->background_image . '" id="mm_image_id" value="' . $image_id . '" class="regular-text" />
+     <input type="button" class="button-primary" value="Select an image" id="mm_media_manager"/>';
+  }
+
+  // Ajax action to refresh the user image
+  public function mm_get_image() {
+    if( isset( $_GET['id'] ) ) {
+      $image = wp_get_attachment_image( filter_input( INPUT_GET, 'id', FILTER_VALIDATE_INT ), 'medium', false, array( 'id' => 'mm-preview-image' ) );
+      $data = array(
+        'image'    => $image,
+      );
+      wp_send_json_success( $data );
+    } else {
+      wp_send_json_error();
     }
   }
 

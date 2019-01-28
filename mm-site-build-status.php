@@ -30,12 +30,35 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+// /**
+//  * Currently plugin version.
+//  * Start at version 1.0.0 and use SemVer - https://semver.org
+//  * Rename this for your plugin and update it as you release new versions.
+//  */
+// define( 'MM_SITE_BUILD_STATUS_VERSION', '1.0.0' );
+
 /**
- * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
+ * Define global constants.
  */
-define( 'MM_SITE_BUILD_STATUS_VERSION', '1.0.0' );
+
+ // Source: https://mycyberuniverse.com/using-constants-wordpress-plugin.html
+ $plugin_data = get_file_data( __FILE__, array( 'name'=>'Plugin Name', 'version'=>'Version', 'text'=>'Text Domain' ) );
+ function allmetatags_constants( $constant_name, $value ) {
+     $constant_name_prefix = 'MM_SITE_BUILD_STATUS_';
+     $constant_name = $constant_name_prefix . $constant_name;
+     if ( !defined( $constant_name ) )
+         define( $constant_name, $value );
+ }
+ allmetatags_constants( 'DIR', dirname( plugin_basename( __FILE__ ) ) );
+ allmetatags_constants( 'BASE', plugin_basename( __FILE__ ) );
+ allmetatags_constants( 'URL', plugin_dir_url( __FILE__ ) );
+ allmetatags_constants( 'PATH', plugin_dir_path( __FILE__ ) );
+ allmetatags_constants( 'SLUG', dirname( plugin_basename( __FILE__ ) ) );
+ allmetatags_constants( 'NAME', $plugin_data['name'] );
+ allmetatags_constants( 'VERSION', $plugin_data['version'] );
+ allmetatags_constants( 'TEXT', $plugin_data['text'] );
+ allmetatags_constants( 'PREFIX', 'allmetatags' );
+ allmetatags_constants( 'SETTINGS', 'allmetatags' );
 
 /**
  * The code that runs during plugin activation.

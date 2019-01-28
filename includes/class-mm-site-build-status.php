@@ -175,6 +175,7 @@ class MM_Site_Build_Status {
 
 		// General Settings
 		$this->loader->add_action( 'admin_init', $general_settings, 'mm_general_settings' );
+		$this->loader->add_action( 'wp_ajax_mm_get_image', $general_settings, 'mm_get_image' );
 
 	}
 
@@ -191,7 +192,6 @@ class MM_Site_Build_Status {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles', 9999999999999 );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		// $this->loader->add_action( 'wp_print_styles', $plugin_public, 'deregister_theme_css' );
 
 		$maintenance_mode = new MM_Site_Build_Status_Maintenance_Mode( $this->get_mm_site_build_status(), $this->get_version() );
 
