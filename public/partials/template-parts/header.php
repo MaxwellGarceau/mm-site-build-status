@@ -10,7 +10,7 @@
   $background_image = wp_get_attachment_url( $background_image_id );
 ?>
 
-<body class="mm-site-build-status" style="background-image: url(<?php echo $background_image; ?>)">
+<body class="mm-site-build-status main-background-image" style="background-image: url(<?php echo $background_image; ?>)">
 <header>
 
 </header>

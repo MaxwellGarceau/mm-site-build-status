@@ -7,13 +7,15 @@
  */
 
 $client_name = get_option( 'client_name' );
+$client_logo_id = get_option( 'client_logo' );
+$client_logo = wp_get_attachment_url( $client_logo_id );
 ?>
 
 <div class="fullscreen-modal fullscreen-modal-skin">
 
   <div class="fullscreen-modal-content-container">
 
-    <img class="client-logo" src="https://www.freelogodesign.org/Content/img/logo-ex-7.png" />
+    <img class="client-logo" src="<?php echo $client_logo ?>" />
 
     <h1 class="page-title-heading">Site Build Status for <?php echo $client_name ?></h1>
 
@@ -21,7 +23,7 @@ $client_name = get_option( 'client_name' );
 
       <?php
         $site_build_stages = get_option( 'define_site_build_stages' );
-        $holding_site = get_option( 'holding_site' );
+        $current_live_site = get_option( 'current_live_site' );
 
         // Add new titles to this array (can link to WP Database later too if needed)
         $column_title_arr = array( 'status', 'what' );
@@ -51,7 +53,11 @@ $client_name = get_option( 'client_name' );
 
     </div>
 
-    <a class="holding-site-url" href="<?php echo $holding_site; ?>">Click here to visit the current website</a>
+    <?php if ( !empty( $current_live_site ) ) { ?>
+
+    <a class="holding-site-url" target="_blank" href="<?php echo $current_live_site; ?>">Click here to visit the current website</a>
+
+    <?php } ?>
 
   </div>
 

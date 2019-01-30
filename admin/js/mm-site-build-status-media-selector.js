@@ -30,7 +30,12 @@
 
    $(document).ready( function() {
 
-     $('input#mm_media_manager').click( function(e) {
+     $('input.mm_media_manager').click( function(e) {
+
+			 // Makes this function dynamic
+			 var hiddenInput = $(this).siblings('input[type="hidden"]');
+			 var previewImage = $(this).siblings('img.mm-preview-image');
+			 var previewImageSize = $(this).data('size');
 
         e.preventDefault();
 
@@ -58,17 +63,17 @@
             my_index++;
           });
           var ids = gallery_ids.join(",");
-          $('input#mm_image_id').val(ids);
-          Refresh_Image(ids);
+          hiddenInput.val(ids);
+          Refresh_Image(ids, previewImage, previewImageSize);
         });
 
         image_frame.on('open', function() {
           // On open, get the id from the hidden input
           // and select the appropiate images in the media manager
           var selection =  image_frame.state().get('selection');
-          ids = $('input#mm_image_id').val().split(',');
+          var ids = hiddenInput.val().split(',');
           ids.forEach( function(id) {
-            attachment = wp.media.attachment(id);
+            var attachment = wp.media.attachment(id);
             attachment.fetch();
             selection.add( attachment ? [ attachment ] : [] );
           });
@@ -81,16 +86,17 @@
    });
 
    // Ajax request to refresh the image preview
-   function Refresh_Image(the_id) {
+   function Refresh_Image(the_id, previewImage, previewImageSize) {
      var data = {
        action: 'mm_get_image',
-       id: the_id
+       id: the_id,
+			 size: previewImageSize
      };
 
      $.get(ajaxurl, data, function(response) {
 
        if (response.success === true) {
-         jQuery('#mm-preview-image').replaceWith( response.data.image );
+         previewImage.replaceWith( response.data.image );
        }
      });
    }

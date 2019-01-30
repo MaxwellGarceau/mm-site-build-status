@@ -6,8 +6,9 @@ class MM_Site_Build_Status_General_Settings {
     // Class Variables
     $this->define_site_build_stages = 'define_site_build_stages';
     $this->on_off = 'on_off';
-    $this->holding_site = 'holding_site';
+    $this->current_live_site = 'current_live_site';
     $this->client_name = 'client_name';
+    $this->client_logo = 'client_logo';
     $this->background_image = 'background_image';
   }
 
@@ -25,16 +26,18 @@ class MM_Site_Build_Status_General_Settings {
     //register_setting($option_group, $option_name, $args = array());
     $option_group = 'mm-settings-general';
     register_setting( $option_group, $this->on_off );
-    register_setting( $option_group, $this->client_name );
+    register_setting( $option_group, $this->client_name, array( $this, 'mm_client_name_validation' ) );
+    register_setting( $option_group, $this->client_logo );
     register_setting( $option_group, $this->define_site_build_stages, array( $this, 'mm_define_site_build_stages_validation' ) );
-    register_setting( $option_group, $this->holding_site, array( $this, 'mm_holding_site_validation' ) );
+    register_setting( $option_group, $this->current_live_site, array( $this, 'mm_current_live_site_validation' ) );
     register_setting( $option_group, $this->background_image );
 
     //add_settings_field( $id, $title, $callback, $page, $section, $args );
     add_settings_field( $this->on_off, 'On/Off', array( $this, 'mm_on_off' ), $menu_slug, $page );
     add_settings_field( $this->client_name, 'Client Name', array( $this, 'mm_client_name' ), $menu_slug, $page );
+    add_settings_field( $this->client_logo, 'Client Logo', array( $this, 'mm_client_logo' ), $menu_slug, $page );
     add_settings_field( $this->define_site_build_stages, 'Define Site Build Stages', array( $this, 'mm_define_site_build_stages' ), $menu_slug, $page );
-    add_settings_field( $this->holding_site, 'Holding Site', array( $this, 'mm_holding_site' ), $menu_slug, $page );
+    add_settings_field( $this->current_live_site, 'Current Live Site', array( $this, 'mm_current_live_site' ), $menu_slug, $page );
     add_settings_field( $this->background_image, 'Background Image', array( $this, 'mm_background_image' ), $menu_slug, $page );
   }
 
@@ -50,6 +53,7 @@ class MM_Site_Build_Status_General_Settings {
     $options = get_option( $this->on_off );
     $checked = ( @$options == 1 ? 'checked' : '' );
     echo '<label><input type="checkbox" name="' . $this->on_off . '" value="1" '.$checked.' /> </label>';
+    echo '<p class="admin-footnote">Please clear your websites cache after enabling or disabling Maintenance Mode.</p>';
   }
 
   /*--------------------------------------------------------------
@@ -61,6 +65,31 @@ class MM_Site_Build_Status_General_Settings {
     echo '<label>
     <input type="text" value="' . $client_name . '" name="' . $this->client_name . '" />
     </label>';
+  }
+
+  public function mm_client_name_validation( $client_name ) {
+    return wp_strip_all_tags( $client_name );
+  }
+
+  /*--------------------------------------------------------------
+  ## Client Logo
+  --------------------------------------------------------------*/
+
+  // Source: https://wordpress.stackexchange.com/questions/235406/how-do-i-select-an-image-from-media-library-in-my-plugin
+  public function mm_client_logo() {
+    $image_id = get_option( $this->client_logo );
+    $default_image_slug = 'default-client-logo.png';
+    $preview_image_dimensions = array( '150px', '150px' );
+
+    if ( intval( $image_id ) > 0 ) { // Loads image if option is selected
+      $image = $this->mm_get_preview_image( $image_id, $preview_image_dimensions );
+    } else { // Default image
+      $image = $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
+    }
+
+     echo $image;
+     echo $this->mm_hidden_input_image_value( $this->client_logo, $image_id );
+     echo $this->mm_select_an_image_button( 'thumbnail' );
   }
 
   /*--------------------------------------------------------------
@@ -118,7 +147,11 @@ class MM_Site_Build_Status_General_Settings {
 
     // If a site build stage input is empty do not save to output array
     foreach ( $site_build_stages as $site_build_stage ) {
-      if ( !empty( $site_build_stage ) ) {
+      // Strip tags from name field
+      $site_build_stage['name'] = wp_strip_all_tags( $site_build_stage['name'] );
+
+      // If input wasn't empty and the name field has a value after sanitization
+      if ( !empty( $site_build_stage ) && !isset( $site_build_stage['name'] ) ) {
         $output[] = $site_build_stage;
       }
     }
@@ -166,23 +199,23 @@ class MM_Site_Build_Status_General_Settings {
   }
 
   /*--------------------------------------------------------------
-  ## Holding Site
+  ## Current Live Site
   --------------------------------------------------------------*/
 
-  public function mm_holding_site() {
-    $holding_site = get_option( $this->holding_site );
+  public function mm_current_live_site() {
+    $current_live_site = get_option( $this->current_live_site );
     echo '<label>
-      <input type="text" value="' . $holding_site . '" name="' . $this->holding_site . '" />
+      <input type="text" value="' . $current_live_site . '" name="' . $this->current_live_site . '" placeholder="https://www.nameofcurrentlivesite.com" />
       </label>';
   }
 
-  public function mm_holding_site_validation( $holding_site ) {
+  public function mm_current_live_site_validation( $current_live_site ) {
 
-    if ( !filter_var( $holding_site, FILTER_VALIDATE_URL ) ) {
-      add_settings_error( 'Holding Site', $this->holding_site, 'Please enter a valid URL');
+    if ( !filter_var( $current_live_site, FILTER_VALIDATE_URL ) ) {
+      add_settings_error( 'Holding Site', $this->current_live_site, 'Please enter a valid URL');
       return false;
     } else {
-      return $holding_site;
+      return wp_strip_all_tags( $current_live_site );
     }
   }
 
@@ -193,21 +226,28 @@ class MM_Site_Build_Status_General_Settings {
   // Source: https://wordpress.stackexchange.com/questions/235406/how-do-i-select-an-image-from-media-library-in-my-plugin
   public function mm_background_image() {
     $image_id = get_option( $this->background_image );
+    $default_image_slug = 'stock-image-1.jpg';
+    $preview_image_dimensions = array( '200px', '300px' );
+
     if ( intval( $image_id ) > 0 ) { // Loads image if option is selected
-      $image = wp_get_attachment_image( $image_id, 'medium', false, array( 'id' => 'mm-preview-image' ) );
+      $image = $this->mm_get_preview_image( $image_id, $preview_image_dimensions );
     } else { // Default image
-      $image = '<img id="mm-preview-image" width="200" height="300" src="' . plugin_dir_url( __FILE__ ) . 'images/stock-image-1.jpg" />';
+      $image = $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
     }
 
      echo $image;
-     echo '<input type="hidden" name="' . $this->background_image . '" id="mm_image_id" value="' . $image_id . '" class="regular-text" />
-     <input type="button" class="button-primary" value="Select an image" id="mm_media_manager"/>';
+     echo $this->mm_hidden_input_image_value( $this->background_image, $image_id );
+     echo $this->mm_select_an_image_button();
   }
+
+  /*--------------------------------------------------------------
+  ## Misc Image
+  --------------------------------------------------------------*/
 
   // Ajax action to refresh the user image
   public function mm_get_image() {
     if( isset( $_GET['id'] ) ) {
-      $image = wp_get_attachment_image( filter_input( INPUT_GET, 'id', FILTER_VALIDATE_INT ), 'medium', false, array( 'id' => 'mm-preview-image' ) );
+      $image = wp_get_attachment_image( filter_input( INPUT_GET, 'id', FILTER_VALIDATE_INT ), $_GET['size'], false, array( 'class' => 'mm-preview-image' ) );
       $data = array(
         'image'    => $image,
       );
@@ -215,6 +255,23 @@ class MM_Site_Build_Status_General_Settings {
     } else {
       wp_send_json_error();
     }
+  }
+
+  // Select an Image button
+  public function mm_select_an_image_button( $size = 'medium' ) {
+    return '<input type="button" class="button-primary mm_media_manager" data-size="' . $size . '" value="Select an image"/>';
+  }
+
+  public function mm_hidden_input_image_value( $name, $image_id ) {
+    return '<input type="hidden" name="' . $name . '" value="' . $image_id . '" class="regular-text" />';
+  }
+
+  public function mm_default_preview_image( $slug = 'stock-image-1.jpg', $dimension_arr = array( '200px', '300px' ) ) {
+    return '<img class="mm-preview-image" width="' . $dimension_arr[0] . '" height="' . $dimension_arr[1] . '" src="' . plugin_dir_url( __FILE__ ) . 'images/' . $slug . '" />';
+  }
+
+  public function mm_get_preview_image( $image_id, $size_arr = array( '200px', '300px' ) ) {
+    return wp_get_attachment_image( $image_id, $size_arr, false, array( 'class' => 'mm-preview-image' ) );
   }
 
 }

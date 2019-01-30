@@ -38,13 +38,18 @@ a:hover, a:active {
 }
 .fullscreen {
   height: auto;
-  min-height: 100%;
+  min-height: 100vh;
   width: 100%;
 }
 .flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.main-background-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .fullscreen-modal {
   min-height: 75%;
