@@ -15,14 +15,15 @@
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
-<h1 class="mm-site-build-status-page-heading">Maintenance Mode with Site Build Status</h1>
+<h1 class="mm-site-build-status-page-heading"><?php _e( 'Maintenance Mode with Site Build Status', MM_SITE_BUILD_STATUS_TEXT ) ?></h1>
 
 <?php settings_errors();?>
 
 <form class="mm-site-build-form general" method="post" action="options.php">
 
-  <?php settings_fields('mm-settings-general');?>
-  <?php do_settings_sections('maintenance-mode-site-build-status');?>
-  <?php submit_button();?>
+  <?php settings_fields( 'mm-settings-general' );?>
+  <?php do_settings_sections( 'maintenance-mode-site-build-status' );?>
+  <?php submit_button( __( 'Save Changes', MM_SITE_BUILD_STATUS_TEXT ) );?>
+  <p class="admin-footnote"><?php _e( 'Please clear your websites cache after enabling or disabling Maintenance Mode.', MM_SITE_BUILD_STATUS_TEXT ) ?></p>
 
 </form>

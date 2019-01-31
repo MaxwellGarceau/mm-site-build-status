@@ -17,7 +17,7 @@ $client_logo = wp_get_attachment_url( $client_logo_id );
 
     <img class="client-logo" src="<?php echo $client_logo ?>" />
 
-    <h1 class="page-title-heading">Site Build Status for <?php echo $client_name ?></h1>
+    <h1 class="page-title-heading"><?php echo __( 'Site Build Status for ', MM_SITE_BUILD_STATUS_TEXT ) . $client_name ?></h1>
 
     <div class="sbs-table">
 
@@ -34,7 +34,7 @@ $client_logo = wp_get_attachment_url( $client_logo_id );
         echo '<div class="sbs-table__column-title-container row">';
 
         foreach( $column_title_arr as $title ) {
-          echo '<div class="sbs-table__column-title sbs-table__column-title-skin ' . convert_to_class_name( $title ) . '" style="width: ' . $column_width_arr[ $title ] .'%"><h4>' . format_titles( $title ) . '</h4></div>';
+          echo '<div class="sbs-table__column-title sbs-table__column-title-skin ' . convert_to_class_name( $title ) . '" style="width: ' . $column_width_arr[ $title ] .'%"><h4>' . __( format_titles( $title ), MM_SITE_BUILD_STATUS_TEXT ) . '</h4></div>';
         }
 
         echo '</div>';
@@ -55,7 +55,7 @@ $client_logo = wp_get_attachment_url( $client_logo_id );
 
     <?php if ( !empty( $current_live_site ) ) { ?>
 
-    <a class="holding-site-url" target="_blank" href="<?php echo $current_live_site; ?>">Click here to visit the current website</a>
+    <a class="holding-site-url" target="_blank" href="<?php echo $current_live_site; ?>"><?php _e( 'Click here to visit the current website', MM_SITE_BUILD_STATUS_TEXT ) ?></a>
 
     <?php } ?>
 

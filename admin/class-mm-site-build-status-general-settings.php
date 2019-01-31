@@ -20,7 +20,7 @@ class MM_Site_Build_Status_General_Settings {
     $menu_slug  = 'maintenance-mode-site-build-status';
     $section = 'mm-general-options';
     $page = 'mm-general-options';
-    $title = 'General Options';
+    $title = __( 'General Options', MM_SITE_BUILD_STATUS_TEXT );
     add_settings_section( $section, $title, array( $this, 'mm_general_options' ), $menu_slug );
 
     //register_setting($option_group, $option_name, $args = array());
@@ -33,16 +33,16 @@ class MM_Site_Build_Status_General_Settings {
     register_setting( $option_group, $this->background_image );
 
     //add_settings_field( $id, $title, $callback, $page, $section, $args );
-    add_settings_field( $this->on_off, 'On/Off', array( $this, 'mm_on_off' ), $menu_slug, $page );
-    add_settings_field( $this->client_name, 'Client Name', array( $this, 'mm_client_name' ), $menu_slug, $page );
-    add_settings_field( $this->client_logo, 'Client Logo', array( $this, 'mm_client_logo' ), $menu_slug, $page );
-    add_settings_field( $this->define_site_build_stages, 'Define Site Build Stages', array( $this, 'mm_define_site_build_stages' ), $menu_slug, $page );
-    add_settings_field( $this->current_live_site, 'Current Live Site', array( $this, 'mm_current_live_site' ), $menu_slug, $page );
-    add_settings_field( $this->background_image, 'Background Image', array( $this, 'mm_background_image' ), $menu_slug, $page );
+    add_settings_field( $this->on_off, __( 'On/Off', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_on_off' ), $menu_slug, $page );
+    add_settings_field( $this->client_name, __( 'Client Name', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_client_name' ), $menu_slug, $page );
+    add_settings_field( $this->client_logo, __( 'Client Logo', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_client_logo' ), $menu_slug, $page );
+    add_settings_field( $this->define_site_build_stages, __( 'Define Site Build Stages', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_define_site_build_stages' ), $menu_slug, $page );
+    add_settings_field( $this->current_live_site, __( 'Current Live Site', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_current_live_site' ), $menu_slug, $page );
+    add_settings_field( $this->background_image, __( 'Background Image', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_background_image' ), $menu_slug, $page );
   }
 
   public function mm_general_options() {
-    echo 'Customize your general settings.';
+    echo __( 'Customize your general settings.', MM_SITE_BUILD_STATUS_TEXT );
   }
 
   /*--------------------------------------------------------------
@@ -53,7 +53,6 @@ class MM_Site_Build_Status_General_Settings {
     $options = get_option( $this->on_off );
     $checked = ( @$options == 1 ? 'checked' : '' );
     echo '<label><input type="checkbox" name="' . $this->on_off . '" value="1" '.$checked.' /> </label>';
-    echo '<p class="admin-footnote">Please clear your websites cache after enabling or disabling Maintenance Mode.</p>';
   }
 
   /*--------------------------------------------------------------
@@ -114,7 +113,7 @@ class MM_Site_Build_Status_General_Settings {
     }
 
     echo $this->mm_define_site_build_stages_empty_input();
-    echo '<button class="add-site-build-stage button button-primary">Add Stage</button>';
+    echo '<button class="add-site-build-stage button button-primary">' . __( 'Add Stage', MM_SITE_BUILD_STATUS_TEXT ) . '</button>';
     echo '</div>';
   }
 
@@ -151,7 +150,7 @@ class MM_Site_Build_Status_General_Settings {
       $site_build_stage['name'] = wp_strip_all_tags( $site_build_stage['name'] );
 
       // If input wasn't empty and the name field has a value after sanitization
-      if ( !empty( $site_build_stage ) && !isset( $site_build_stage['name'] ) ) {
+      if ( !empty( $site_build_stage ) && !empty( $site_build_stage['name'] ) ) {
         $output[] = $site_build_stage;
       }
     }
@@ -211,7 +210,8 @@ class MM_Site_Build_Status_General_Settings {
 
   public function mm_current_live_site_validation( $current_live_site ) {
 
-    if ( !filter_var( $current_live_site, FILTER_VALIDATE_URL ) ) {
+    // Return an error message if not a valid URL and input was not empty
+    if ( !filter_var( $current_live_site, FILTER_VALIDATE_URL ) && !empty( $current_live_site ) ) {
       add_settings_error( 'Holding Site', $this->current_live_site, 'Please enter a valid URL');
       return false;
     } else {
@@ -259,7 +259,7 @@ class MM_Site_Build_Status_General_Settings {
 
   // Select an Image button
   public function mm_select_an_image_button( $size = 'medium' ) {
-    return '<input type="button" class="button-primary mm_media_manager" data-size="' . $size . '" value="Select an image"/>';
+    return '<input type="button" class="button-primary mm_media_manager" data-size="' . $size . '" value="' . __( 'Select an image', MM_SITE_BUILD_STATUS_TEXT ) . '"/>';
   }
 
   public function mm_hidden_input_image_value( $name, $image_id ) {
