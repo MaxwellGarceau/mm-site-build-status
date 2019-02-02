@@ -51,6 +51,11 @@ input[type="text"] {
   font-size: 0.9em !important;
   font-style: italic;
 }
+.admin-footnote.bold {
+  font-weight: bold;
+  color: #c00;
+  font-size: 1.1em !important;
+}
 .mm-site-build-form .submit {
   padding: 0;
 }

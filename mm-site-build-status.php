@@ -14,11 +14,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Maintenance Mode with Site Build Status
- * Plugin URI:        http://example.com/mm-site-build-status-uri/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Plugin URI:        http://live-maintenance-mode-with-site-build-status.pantheonsite.io/
+ * Description:       Displays a maintenance mode page for website development with additional site build progress information for your clients.
  * Version:           1.0.0
- * Author:            Your Name or Your Company
- * Author URI:        http://example.com/
+ * Author:            Red Earth Design
+ * Author URI:        https://redearthdesign.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       mm-site-build-status

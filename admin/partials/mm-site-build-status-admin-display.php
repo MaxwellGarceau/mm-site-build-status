@@ -24,6 +24,6 @@
   <?php settings_fields( 'mm-settings-general' );?>
   <?php do_settings_sections( 'maintenance-mode-site-build-status' );?>
   <?php submit_button( __( 'Save Changes', MM_SITE_BUILD_STATUS_TEXT ) );?>
-  <p class="admin-footnote"><?php _e( 'Please clear your websites cache after enabling or disabling Maintenance Mode.', MM_SITE_BUILD_STATUS_TEXT ) ?></p>
+  <p class="admin-footnote bold"><?php _e( 'Please clear your websites cache for your changes to take effect.', MM_SITE_BUILD_STATUS_TEXT ) ?></p>
 
 </form>

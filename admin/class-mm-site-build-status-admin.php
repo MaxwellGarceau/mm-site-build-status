@@ -119,7 +119,7 @@ class MM_Site_Build_Status_Admin {
 	// Source: https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
 	public function add_settings_link_to_plugin_menu( $links ) {
 		$mylinks = array(
-			'<a href="' . admin_url( 'options-general.php?page=' . $this->mm_admin_url ) . '">Settings</a>',
+			'<a href="' . admin_url( 'admin.php?page=' . $this->mm_admin_url ) . '">' . __( 'Settings', MM_SITE_BUILD_STATUS_TEXT) . '</a>',
 		);
 		return array_merge( $links, $mylinks );
 	}
@@ -140,21 +140,21 @@ class MM_Site_Build_Status_Admin {
 		 */
 
     // Main Admin Page
-    $page_title = 'Maintenance Mode with Site Build Status';
-    $menu_title = 'Maintenance';
+    $page_title = __( 'Maintenance Mode with Site Build Status', MM_SITE_BUILD_STATUS_TEXT);
+    $menu_title = __( 'Maintenance', MM_SITE_BUILD_STATUS_TEXT);
     $capability = 'manage_options';
     $menu_slug  = 'maintenance-mode-site-build-status';
     $function   = array( $this, 'admin_menu_view' );
     $icon_url   = '';
     $position   = 79;
 
-    add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position);
+    add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
 
     add_submenu_page( $menu_slug, 'General '.$page_title, 'General', $capability, $menu_slug, $function );
 
 	}
 
-	public function admin_menu_view(){
+	public function admin_menu_view() {
 
 		/**
 		 * Provides the admin menu view

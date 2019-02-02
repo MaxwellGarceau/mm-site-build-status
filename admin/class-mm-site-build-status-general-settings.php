@@ -169,19 +169,19 @@ class MM_Site_Build_Status_General_Settings {
     $progress_states = [
       [
         'value' => 'pending',
-        'name' => 'Pending'
+        'name' => __( 'Pending', MM_SITE_BUILD_STATUS_TEXT )
       ],
       [
         'value' => 'in-progress',
-        'name' => 'In Progress'
+        'name' => __( 'In Progress', MM_SITE_BUILD_STATUS_TEXT )
       ],
       [
         'value' => 'completed',
-        'name' => 'Completed'
+        'name' => __( 'Completed', MM_SITE_BUILD_STATUS_TEXT )
       ],
       [
         'value' => 'not-started',
-        'name' => 'Not Started'
+        'name' => __( 'Add Stage', MM_SITE_BUILD_STATUS_TEXT )
       ],
     ];
 
@@ -204,7 +204,7 @@ class MM_Site_Build_Status_General_Settings {
   public function mm_current_live_site() {
     $current_live_site = get_option( $this->current_live_site );
     echo '<label>
-      <input type="text" value="' . $current_live_site . '" name="' . $this->current_live_site . '" placeholder="https://www.nameofcurrentlivesite.com" />
+      <input type="text" value="' . $current_live_site . '" name="' . $this->current_live_site . '" placeholder="' . __( 'https://www.nameofcurrentlivesite.com', MM_SITE_BUILD_STATUS_TEXT ) . '" />
       </label>';
   }
 
