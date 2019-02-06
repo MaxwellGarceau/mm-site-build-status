@@ -181,7 +181,7 @@ class MM_Site_Build_Status_General_Settings {
       ],
       [
         'value' => 'not-started',
-        'name' => __( 'Add Stage', MM_SITE_BUILD_STATUS_TEXT )
+        'name' => __( 'Not Started', MM_SITE_BUILD_STATUS_TEXT )
       ],
     ];
 

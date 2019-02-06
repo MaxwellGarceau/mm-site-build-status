@@ -132,6 +132,11 @@ class MM_Site_Build_Status {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-mm-site-build-status-general-settings.php';
 
+		/**
+		 * The class responsible for clearing caches
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mm-site-build-status-clear-cache.php';
+
 		$this->loader = new MM_Site_Build_Status_Loader();
 
 	}
@@ -164,6 +169,7 @@ class MM_Site_Build_Status {
 
 		$plugin_admin = new MM_Site_Build_Status_Admin( $this->get_mm_site_build_status(), $this->get_version() );
 		$general_settings = new MM_Site_Build_Status_General_Settings( $this->get_mm_site_build_status(), $this->get_version() );
+		$clear_cache = new MM_Site_Build_Status_Clear_Cache( $this->get_mm_site_build_status(), $this->get_version() );
 
 		// Plugin Admin
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
@@ -176,6 +182,11 @@ class MM_Site_Build_Status {
 		// General Settings
 		$this->loader->add_action( 'admin_init', $general_settings, 'mm_general_settings' );
 		$this->loader->add_action( 'wp_ajax_mm_get_image', $general_settings, 'mm_get_image' );
+
+		// Clear Cache on Pantheon
+		// if ( isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ) :
+			// $this->loader->add_action( 'admin_post_pantheon_cache_delete_page', $clear_cache, 'clear_cache', 1 );
+		// endif; # Ensuring that this is on Pantheon
 
 	}
 
