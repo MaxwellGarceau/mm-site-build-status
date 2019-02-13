@@ -2,14 +2,16 @@
 
 class MM_Site_Build_Status_General_Settings {
 
+  // Class Variables
+  var $define_site_build_stages = 'define_site_build_stages';
+  var $on_off = 'on_off';
+  var $current_live_site = 'current_live_site';
+  var $client_name = 'client_name';
+  var $client_logo = 'client_logo';
+  var $background_image = 'background_image';
+
   public function __construct() {
-    // Class Variables
-    $this->define_site_build_stages = 'define_site_build_stages';
-    $this->on_off = 'on_off';
-    $this->current_live_site = 'current_live_site';
-    $this->client_name = 'client_name';
-    $this->client_logo = 'client_logo';
-    $this->background_image = 'background_image';
+
   }
 
   /*--------------------------------------------------------------
@@ -35,7 +37,7 @@ class MM_Site_Build_Status_General_Settings {
     //add_settings_field( $id, $title, $callback, $page, $section, $args );
     add_settings_field( $this->on_off, __( 'On/Off', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_on_off' ), $menu_slug, $page );
     add_settings_field( $this->client_name, __( 'Client Name', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_client_name' ), $menu_slug, $page );
-    add_settings_field( $this->client_logo, __( 'Client Logo', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_client_logo' ), $menu_slug, $page );
+    add_settings_field( $this->client_logo, __( 'Logo', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_client_logo' ), $menu_slug, $page );
     add_settings_field( $this->define_site_build_stages, __( 'Define Site Build Stages', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_define_site_build_stages' ), $menu_slug, $page );
     add_settings_field( $this->current_live_site, __( 'Current Live Site', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_current_live_site' ), $menu_slug, $page );
     add_settings_field( $this->background_image, __( 'Background Image', MM_SITE_BUILD_STATUS_TEXT ), array( $this, 'mm_background_image' ), $menu_slug, $page );
@@ -83,10 +85,17 @@ class MM_Site_Build_Status_General_Settings {
     if ( intval( $image_id ) > 0 ) { // Loads image if option is selected
       $image = $this->mm_get_preview_image( $image_id, $preview_image_dimensions );
     } else { // Default image
-      $image = $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
+      // $image = $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
+      $image = '<img width="200" height="122" class="mm-preview-image" src="" alt="Logo" />';
     }
 
-     echo $image;
+    if ( $image ) {
+      echo $image;
+    } else {
+      echo '<img width="200" height="122" class="mm-preview-image" src="" alt="Logo" />';
+      // echo $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
+    }
+
      echo $this->mm_hidden_input_image_value( $this->client_logo, $image_id );
      echo $this->mm_select_an_image_button( 'thumbnail' );
   }
@@ -168,10 +177,6 @@ class MM_Site_Build_Status_General_Settings {
     // Coded so that the $progress_states array can be dynamically generated and users can define their own progress states
     $progress_states = [
       [
-        'value' => 'pending',
-        'name' => __( 'Pending', MM_SITE_BUILD_STATUS_TEXT )
-      ],
-      [
         'value' => 'in-progress',
         'name' => __( 'In Progress', MM_SITE_BUILD_STATUS_TEXT )
       ],
@@ -232,10 +237,16 @@ class MM_Site_Build_Status_General_Settings {
     if ( intval( $image_id ) > 0 ) { // Loads image if option is selected
       $image = $this->mm_get_preview_image( $image_id, $preview_image_dimensions );
     } else { // Default image
-      $image = $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
+      // $image = $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
+      echo '<img width="200" height="122" class="mm-preview-image" src="" alt="Logo" />';
     }
 
-     echo $image;
+    if ( $image ) {
+      echo $image;
+    } else {
+      echo '<img width="200" height="122" class="mm-preview-image" src="" alt="Logo" />';
+      // echo $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
+    }
      echo $this->mm_hidden_input_image_value( $this->background_image, $image_id );
      echo $this->mm_select_an_image_button();
   }
@@ -271,7 +282,7 @@ class MM_Site_Build_Status_General_Settings {
   }
 
   public function mm_get_preview_image( $image_id, $size_arr = array( '200px', '300px' ) ) {
-    return wp_get_attachment_image( $image_id, $size_arr, false, array( 'class' => 'mm-preview-image' ) );
+    return wp_get_attachment_image( $image_id, $size_arr, false, array( 'class' => 'mm-preview-image', 'alt' => 'Logo' ) );
   }
 
 }

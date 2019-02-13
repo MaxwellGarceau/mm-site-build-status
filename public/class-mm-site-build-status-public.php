@@ -82,6 +82,13 @@ class MM_Site_Build_Status_Public {
 
 		wp_enqueue_style( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'css/mm-site-build-status-public.css', array(), $this->version, 'all' );
 
+		// Create an instance of MM_Site_Build_Status_General_Settings
+		$mm_site_build_status_general_settings = new MM_Site_Build_Status_General_Settings;
+
+		// Localize setting names for frontend
+		$general_settings_class_vars = get_class_vars( get_class( $mm_site_build_status_general_settings ) );
+    wp_localize_script( $this->mm_site_build_status, 'site_build_stage_names', $general_settings_class_vars );
+
 	}
 
 	/**

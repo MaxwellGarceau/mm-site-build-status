@@ -139,7 +139,7 @@ a:hover, a:active {
     margin-bottom: 20px;
   }
 }
-.holding-site-url {
+.current-live-site-url {
   position: absolute;
   bottom: 0;
   width: 100%;

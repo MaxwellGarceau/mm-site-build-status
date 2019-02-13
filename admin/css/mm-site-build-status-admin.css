@@ -59,4 +59,7 @@ input[type="text"] {
 .mm-site-build-form .submit {
   padding: 0;
 }
+img.mm-preview-image[src=""] {
+  display: none;
+}
 /*# sourceMappingURL=mm-site-build-status-admin.css.map */

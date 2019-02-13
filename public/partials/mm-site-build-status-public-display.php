@@ -27,7 +27,7 @@
 
           <?php
             //  locate_template( './templates/mm-basic', true );
-            @include_once 'templates/mm-basic.php';
+            include_once 'templates/mm-basic.php';
           ?>
 
           </div> <!-- main-page-block -->

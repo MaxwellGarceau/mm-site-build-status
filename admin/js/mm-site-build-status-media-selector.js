@@ -41,7 +41,7 @@
 
         var image_frame;
         if (image_frame){
-            image_frame.open();
+          image_frame.open();
         }
         // Define image_frame as wp.media object
         image_frame = wp.media({
@@ -52,7 +52,7 @@
           }
         });
 
-        image_frame.on('close', function() {
+        image_frame.on('select', function(e) {
           // On close, get selections and save to the hidden input
           // plus other AJAX stuff to refresh the image preview
           var selection =  image_frame.state().get('selection');

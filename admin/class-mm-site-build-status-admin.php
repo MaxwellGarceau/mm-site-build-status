@@ -104,16 +104,21 @@ class MM_Site_Build_Status_Admin {
 
 		wp_enqueue_script( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'js/mm-site-build-status-admin.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( $this->mm_site_build_status . '-media-selector', plugin_dir_url( __FILE__ ) . 'js/mm-site-build-status-media-selector.js', array( 'jquery' ), $this->version, false );
-    // Create an instance of MM_Site_Build_Status_General_Settings and localize the empty input HTML for JavaScript
+
+    // Create an instance of MM_Site_Build_Status_General_Settings
 		$mm_site_build_status_general_settings = new MM_Site_Build_Status_General_Settings;
 
-    $general_settings_translation_array = array(
+ 		// localize the empty input HTML for JavaScript
+    $general_settings_html = array(
       'empty_input' => $mm_site_build_status_general_settings->mm_define_site_build_stages_empty_input(),
       'remove_button' => $mm_site_build_status_general_settings->mm_define_site_build_stages_remove_button(),
       'progress_select' => $mm_site_build_status_general_settings->mm_define_site_build_progress()
     );
-    wp_localize_script( $this->mm_site_build_status, 'site_build_stage', $general_settings_translation_array );
+    wp_localize_script( $this->mm_site_build_status, 'site_build_stage', $general_settings_html );
 
+		// Localize setting names for admin interface
+		$general_settings_class_vars = get_class_vars( get_class( $mm_site_build_status_general_settings ) );
+    wp_localize_script( $this->mm_site_build_status, 'site_build_stage_names', $general_settings_class_vars );
 	}
 
 	// Source: https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
