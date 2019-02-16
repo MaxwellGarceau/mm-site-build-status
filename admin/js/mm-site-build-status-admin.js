@@ -56,20 +56,33 @@
 			var emptyInput = $( site_build_stage.empty_input );
 			var removeButton = $( site_build_stage.remove_button );
 			var progressSelect = $( site_build_stage.progress_select );
+			var linkSelect = $( site_build_stage.link_select );
+
+			// Current Site Build Stage Number
+			var currentSiteBuildStageNumber = $('.site-build-stage').length - 1;
 
 			// Create an input in WP Admin for our new site build stage from the last site build stage input
 			var newSiteBuildStage = $( '.site-build-stage' ).last();
+
+			// Empty Site Build Input Modification
 			var newSiteBuildStageInput = newSiteBuildStage.find( 'input' );
 			var newSiteBuildStageInputLabel = newSiteBuildStageInput.parent( 'label' );
-			var currentSiteBuildStageNumber = $('.site-build-stage').length - 1;
+
+			// Empty Link Input Modification
+			var newSiteBuildStageLinkInput = linkSelect.find( 'input' );
 
 			// Add name attribute for WordPress admin get_option() value
 			newSiteBuildStageInput.attr('name', 'define_site_build_stages[' + currentSiteBuildStageNumber + '][name]');
 			progressSelect.attr('name', 'define_site_build_stages[' + currentSiteBuildStageNumber + '][progress]');
+			newSiteBuildStageLinkInput.attr('name', 'define_site_build_stages[' + currentSiteBuildStageNumber + '][link]');
 
 			// Insert remove button and select element to new input
-			removeButton.on( 'click', removeSiteBuildStage ).insertAfter( newSiteBuildStageInputLabel );
-			progressSelect.insertAfter( newSiteBuildStageInputLabel );
+			// removeButton.on( 'click', removeSiteBuildStage ).insertAfter( newSiteBuildStageInputLabel );
+			// progressSelect.insertAfter( newSiteBuildStageInputLabel );
+			// linkSelect.insertAfter( progressSelect );
+			newSiteBuildStage.append( progressSelect );
+			newSiteBuildStage.append( linkSelect );
+			newSiteBuildStage.append( removeButton.on( 'click', removeSiteBuildStage ) );
 
 			// Insert empty input before "Add Stage" button
 			emptyInput.insertBefore( $( this ) );

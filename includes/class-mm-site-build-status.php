@@ -100,6 +100,11 @@ class MM_Site_Build_Status {
 	private function load_dependencies() {
 
 		/**
+		 * Helper functions
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/helper-functions.php';
+
+		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */

@@ -117,6 +117,7 @@ class MM_Site_Build_Status_General_Settings {
       echo '<div class="site-build-stage">';
       echo $this->mm_define_site_build_stages_filled_input( $option['name'], $key );
       echo $this->mm_define_site_build_progress( $option['progress'], $key );
+      echo $this->mm_define_site_build_stage_link( $option['link'], $key );
       echo $this->mm_define_site_build_stages_remove_button();
       echo '</div>';
     }
@@ -130,7 +131,7 @@ class MM_Site_Build_Status_General_Settings {
     // This HTML is sent to JavaScript and used to create new inputs when "Add Stage" is clicked
     return '<div class="site-build-stage">
         <label>
-          <input type="text" value=""/>
+          <input type="text" value="" placeholder="Enter text then click the button to create a stage." />
         </label>
         </div>';
   }
@@ -158,6 +159,21 @@ class MM_Site_Build_Status_General_Settings {
       // Strip tags from name field
       $site_build_stage['name'] = wp_strip_all_tags( $site_build_stage['name'] );
 
+      // Validate Site Build Stage Link
+      if ( !empty( $site_build_stage['link'] ) ) {
+
+        $regex = '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/';
+
+        // Return an error message if not a valid URL and input was not empty
+        if ( !preg_match( $regex, $site_build_stage['link'] ) ) {
+          $site_build_stage['link'] = '';
+          add_settings_error( 'Site Build Stage Link', $this->define_site_build_stages, 'Please enter a valid URL');
+        } else {
+          $site_build_stage['link'] = wp_strip_all_tags( add_scheme( $site_build_stage['link'] ) );
+        }
+
+      }
+
       // If input wasn't empty and the name field has a value after sanitization
       if ( !empty( $site_build_stage ) && !empty( $site_build_stage['name'] ) ) {
         $output[] = $site_build_stage;
@@ -166,6 +182,17 @@ class MM_Site_Build_Status_General_Settings {
 
     // Return output array
     return $output;
+  }
+
+  /*--------------------------------------------------------------
+  ## Site Build Link
+  --------------------------------------------------------------*/
+
+  public function mm_define_site_build_stage_link( $option = '', $key = '' ) {
+    return '
+      <label>
+        <input placeholder="Optional URL (https://drive.google.com/drive/)" type="text" name="' . $this->define_site_build_stages . '[' . $key . '][link]" value="' . $option . '"/>
+      </label>';
   }
 
   /*--------------------------------------------------------------
@@ -214,13 +241,14 @@ class MM_Site_Build_Status_General_Settings {
   }
 
   public function mm_current_live_site_validation( $current_live_site ) {
+    $regex = '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/';
 
     // Return an error message if not a valid URL and input was not empty
-    if ( !filter_var( $current_live_site, FILTER_VALIDATE_URL ) && !empty( $current_live_site ) ) {
-      add_settings_error( 'Holding Site', $this->current_live_site, 'Please enter a valid URL');
+    if ( !preg_match( $regex, $current_live_site ) && !empty( $current_live_site ) ) {
+      add_settings_error( 'Current Live Site', $this->current_live_site, 'Please enter a valid URL');
       return false;
     } else {
-      return wp_strip_all_tags( $current_live_site );
+      return wp_strip_all_tags( add_scheme( $current_live_site ) );
     }
   }
 

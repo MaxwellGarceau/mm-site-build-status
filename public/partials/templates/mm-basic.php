@@ -68,8 +68,18 @@ $client_logo = wp_get_attachment_url( $client_logo_id );
           // Table content row generator. Generates with information from site_build_stages
           foreach( $site_build_stages as $site_build_stage ) {
             echo '<div class="sbs-table__column-cell-container row">';
-            echo '<div class="sbs-table__column-cell status" style="width: ' . $column_title_arr[0]['column_width'] . '">' . determine_status_icon( $site_build_stage['progress'] ) . '</div>';
-            echo '<div class="sbs-table__column-cell what" style="width: ' . $column_title_arr[1]['column_width'] . '">' . $site_build_stage['name'] . '</div>';
+              echo '<div class="sbs-table__column-cell status" style="width: ' . $column_title_arr[0]['column_width'] . '">' . determine_status_icon( $site_build_stage['progress'] ) . '</div>';
+
+              if ( !empty( $site_build_stage['link'] ) ) {
+                echo '<a href="' . $site_build_stage['link'] . '">';
+              }
+
+                echo '<div class="sbs-table__column-cell stage" style="width: ' . $column_title_arr[1]['column_width'] . '">' . $site_build_stage['name'] . '</div>';
+
+              if ( !empty( $site_build_stage['link'] ) ) {
+                echo '</a>';
+              }
+
             echo '</div>';
           }
 

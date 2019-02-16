@@ -112,7 +112,8 @@ class MM_Site_Build_Status_Admin {
     $general_settings_html = array(
       'empty_input' => $mm_site_build_status_general_settings->mm_define_site_build_stages_empty_input(),
       'remove_button' => $mm_site_build_status_general_settings->mm_define_site_build_stages_remove_button(),
-      'progress_select' => $mm_site_build_status_general_settings->mm_define_site_build_progress()
+      'progress_select' => $mm_site_build_status_general_settings->mm_define_site_build_progress(),
+			'link_select' => $mm_site_build_status_general_settings->mm_define_site_build_stage_link()
     );
     wp_localize_script( $this->mm_site_build_status, 'site_build_stage', $general_settings_html );
 
