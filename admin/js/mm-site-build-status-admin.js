@@ -30,6 +30,14 @@
 
 	$( document ).ready( function() {
 		/*--------------------------------------------------------------
+		## Displays error message if Add Stage has no value
+		--------------------------------------------------------------*/
+		function displayErrorMessage( text, classes ) {
+			var formattedClasses = classes ? ' ' + classes : '';
+			return '<div class="red-error-message' + formattedClasses + '">' + text + '</div>';
+		}
+
+		/*--------------------------------------------------------------
 		## Removes Site Build Option from admin screen
 		--------------------------------------------------------------*/
 		function removeSiteBuildStage( e ) {
@@ -45,12 +53,27 @@
 		function addSiteBuildStage( e ) {
 			e.preventDefault();
 
-			// If last input has no value do not create another input
-			var lastInputHasValue = $( '.site-build-stage' ).last().find('input').attr('value').length <= 0;
+			// REFACTOR INPUT VALIDATION WITH BETTER SYSTEM AS PLUGIN GROWS
+
+			// Input validation
+			var lastInput = $( '.site-build-stage__name' ).last();
+			var lastInputHasValue = lastInput.attr('value').length <= 0;
+			var siteBuildNameError = $( '.red-error-message.site-build-stage__name--error' );
 
 			if ( lastInputHasValue ) {
+				var noValueErrorMessage = 'Please enter a site build stage.';
+
+					if ( siteBuildNameError.length <= 0 ) {
+						$( displayErrorMessage( noValueErrorMessage, 'site-build-stage__name--error' ) ).insertAfter( e.target );
+						lastInput.addClass( 'red-error' );
+					}
+
 				return false;
+			} else if ( siteBuildNameError.length > 0 ) {
+				siteBuildNameError.remove();
+				lastInput.removeClass( 'red-error' );
 			}
+			// END REFACTOR INPUT VALIDATION WITH BETTER SYSTEM AS PLUGIN GROWS
 
 			// Data from PHP
 			var emptyInput = $( site_build_stage.empty_input );

@@ -131,7 +131,7 @@ class MM_Site_Build_Status_General_Settings {
     // This HTML is sent to JavaScript and used to create new inputs when "Add Stage" is clicked
     return '<div class="site-build-stage">
         <label>
-          <input type="text" value="" placeholder="Enter text then click the button to create a stage." />
+          <input class="site-build-stage__name" type="text" value="" placeholder="Enter text then click the button to create a stage." />
         </label>
         </div>';
   }
@@ -146,7 +146,7 @@ class MM_Site_Build_Status_General_Settings {
   public function mm_define_site_build_stages_filled_input( $option, $key ) {
       return '
         <label>
-          <input type="text" name="' . $this->define_site_build_stages . '[' . $key . '][name]" value="' . $option . '"/>
+          <input class="site-build-stage__name" type="text" name="' . $this->define_site_build_stages . '[' . $key . '][name]" value="' . $option . '"/>
         </label>';
   }
 

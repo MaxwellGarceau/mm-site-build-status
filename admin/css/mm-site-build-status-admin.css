@@ -62,4 +62,14 @@ input[type="text"] {
 img.mm-preview-image[src=""] {
   display: none;
 }
+.red-error-message {
+  color: #c00;
+  margin-top: 5px;
+}
+.red-error-message:before {
+  content: "*";
+}
+input.red-error {
+  border-color: #c00;
+}
 /*# sourceMappingURL=mm-site-build-status-admin.css.map */
