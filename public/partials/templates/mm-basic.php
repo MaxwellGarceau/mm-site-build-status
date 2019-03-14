@@ -52,11 +52,11 @@ $client_logo = wp_get_attachment_url( $client_logo_id );
         if ( !empty( $site_build_stages ) ) {
 
           // Table title row
-          echo '<div class="sbs-table__column-title-container row">';
+          echo '<div class="sbs-table__column-title-container sbs-table__row">';
 
           // Table title columns
           foreach( $column_title_arr as $title ) {
-            echo '<div class="sbs-table__column-title sbs-table__column-title-skin ' . trim( $title['custom_classes'] ) . '" style="width: ' . $title['column_width'] .'"><h4>' . $title['title_display'] . '</h4></div>';
+            echo '<div class="sbs-table__column-title sbs-table__column-title-skin ' . trim( $title['custom_classes'] ) . '" style="flex: 0 1 ' . $title['column_width'] . '"><h4>' . $title['title_display'] . '</h4></div>';
           }
 
           echo '</div>';
@@ -67,14 +67,14 @@ $client_logo = wp_get_attachment_url( $client_logo_id );
 
           // Table content row generator. Generates with information from site_build_stages
           foreach( $site_build_stages as $site_build_stage ) {
-            echo '<div class="sbs-table__column-cell-container row">';
-              echo '<div class="sbs-table__column-cell status" style="width: ' . $column_title_arr[0]['column_width'] . '">' . determine_status_icon( $site_build_stage['progress'] ) . '</div>';
+            echo '<div class="sbs-table__column-cell-container sbs-table__row">';
+              echo '<div class="sbs-table__column-cell status" style="flex: 0 1 ' . $column_title_arr[0]['column_width'] . '">' . determine_status_icon( $site_build_stage['progress'] ) . '</div>';
 
               if ( !empty( $site_build_stage['link'] ) ) {
                 echo '<a href="' . $site_build_stage['link'] . '">';
               }
 
-                echo '<div class="sbs-table__column-cell stage" style="width: ' . $column_title_arr[1]['column_width'] . '">' . $site_build_stage['name'] . '</div>';
+                echo '<div class="sbs-table__column-cell stage" style="flex: 0 1 ' . $column_title_arr[1]['column_width'] . '">' . $site_build_stage['name'] . '</div>';
 
               if ( !empty( $site_build_stage['link'] ) ) {
                 echo '</a>';

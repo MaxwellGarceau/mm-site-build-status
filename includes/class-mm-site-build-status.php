@@ -100,6 +100,11 @@ class MM_Site_Build_Status {
 	private function load_dependencies() {
 
 		/**
+		 * Static Values
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/static-values.php';
+
+		/**
 		 * Helper functions
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/helper-functions.php';
@@ -188,11 +193,6 @@ class MM_Site_Build_Status {
 		$this->loader->add_action( 'admin_init', $general_settings, 'mm_general_settings' );
 		$this->loader->add_action( 'wp_ajax_mm_get_image', $general_settings, 'mm_get_image' );
 
-		// Clear Cache on Pantheon
-		// if ( isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ) :
-			// $this->loader->add_action( 'admin_post_pantheon_cache_delete_page', $clear_cache, 'clear_cache', 1 );
-		// endif; # Ensuring that this is on Pantheon
-
 	}
 
 	/**
@@ -205,13 +205,15 @@ class MM_Site_Build_Status {
 	private function define_public_hooks() {
 
 		$plugin_public = new MM_Site_Build_Status_Public( $this->get_mm_site_build_status(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles', 9999999999999 );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
 		$maintenance_mode = new MM_Site_Build_Status_Maintenance_Mode( $this->get_mm_site_build_status(), $this->get_version() );
 
-		$this->loader->add_filter( 'template_include', $maintenance_mode, 'determine_maintenance_mode' );
+		// Plugin Public
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles', 9999999999999 );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts', 9999999999999 );
+
+		// Maintenance Mode
+		$this->loader->add_action( 'wp_enqueue_scripts', $maintenance_mode, 'deregister_scripts_and_styles', 99999999999999 );
+		$this->loader->add_filter( 'template_include', $maintenance_mode, 'redirect_to_maintenance_mode' );
 
 	}
 

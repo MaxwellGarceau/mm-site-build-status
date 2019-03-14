@@ -47,6 +47,7 @@ class MM_Site_Build_Status_Public {
 	 * @param      string    $mm_site_build_status       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
+
 	public function __construct( $mm_site_build_status, $version ) {
 
 		$this->mm_site_build_status = $mm_site_build_status;
@@ -74,20 +75,26 @@ class MM_Site_Build_Status_Public {
 		 * class.
 		 */
 
-		// Font Awesome
-		wp_enqueue_style( 'font-awesome', 'https://use.fontawesome.com/releases/v5.6.3/css/all.css', array(), $this->version, 'all' );
+		 $styles = get_maintenance_mode_styles();
 
-		// Google Fonts
-		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Montserrat', array(), $this->version, 'all' );
+		 foreach ( $styles as $style ) {
+			 if ( !array_key_exists( 'deps', $style ) ) {
+				 $style['deps'] = array();
+			 }
+			 if ( !array_key_exists( 'in_footer', $style ) ) {
+				 $style['in_footer'] = 'all';
+			 }
 
-		wp_enqueue_style( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'css/mm-site-build-status-public.css', array(), $this->version, 'all' );
+			 wp_enqueue_style( $style['handle'], $style['src'], $style['deps'], $this->version, $style['in_footer'] );
+		 }
 
-		// Create an instance of MM_Site_Build_Status_General_Settings
-		$mm_site_build_status_general_settings = new MM_Site_Build_Status_General_Settings;
-
-		// Localize setting names for frontend
-		$general_settings_class_vars = get_class_vars( get_class( $mm_site_build_status_general_settings ) );
-    wp_localize_script( $this->mm_site_build_status, 'site_build_stage_names', $general_settings_class_vars );
+		// // Font Awesome
+		// wp_enqueue_style( 'font-awesome', 'https://use.fontawesome.com/releases/v5.6.3/css/all.css', array(), $this->version, 'all' );
+		//
+		// // Google Fonts
+		// wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Montserrat', array(), $this->version, 'all' );
+		//
+		// wp_enqueue_style( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'css/mm-site-build-status-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -110,7 +117,16 @@ class MM_Site_Build_Status_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'js/mm-site-build-status-public.js', array( 'jquery' ), $this->version, false );
+		wp_register_script( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'js/mm-site-build-status-public.js', array( 'jquery' ), $this->version, false );
+
+		 // Create an instance of MM_Site_Build_Status_General_Settings
+ 		$mm_site_build_status_general_settings = new MM_Site_Build_Status_General_Settings;
+
+ 		// Localize setting names for frontend
+ 		$general_settings_class_vars = get_class_vars( get_class( $mm_site_build_status_general_settings ) );
+    wp_localize_script( $this->mm_site_build_status, 'site_build_stage_names', $general_settings_class_vars );
+
+		wp_enqueue_script( $this->mm_site_build_status );
 
 	}
 

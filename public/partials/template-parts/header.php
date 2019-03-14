@@ -1,7 +1,6 @@
-<?php wp_head(); ?>
 <html>
 <head>
-  <?php do_action('wp_head') ?>
+  <?php do_action( 'wp_head' ); ?>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <?php
@@ -20,6 +19,3 @@
 ?>
 
 <body class="mm-site-build-status main-background-image" style="background-image: url(<?php echo $background_image; ?>)">
-<header>
-
-</header>
