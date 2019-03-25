@@ -265,15 +265,15 @@ class MM_Site_Build_Status_General_Settings {
     if ( intval( $image_id ) > 0 ) { // Loads image if option is selected
       $image = $this->mm_get_preview_image( $image_id, $preview_image_dimensions );
     } else { // Default image
-      // $image = $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
-      echo '<img width="200" height="122" class="mm-preview-image" src="" alt="Logo" />';
+      $image = $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
+      // echo '<img width="200" height="122" class="mm-preview-image" src="" alt="Logo" />';
     }
 
     if ( $image ) {
       echo $image;
     } else {
-      echo '<img width="200" height="122" class="mm-preview-image" src="" alt="Logo" />';
-      // echo $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
+      // echo '<img width="200" height="122" class="mm-preview-image" src="" alt="Logo" />';
+      echo $this->mm_default_preview_image( $default_image_slug, $preview_image_dimensions );
     }
      echo $this->mm_hidden_input_image_value( $this->background_image, $image_id );
      echo $this->mm_select_an_image_button();
