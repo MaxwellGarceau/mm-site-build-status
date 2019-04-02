@@ -66,6 +66,10 @@ $sbs-table-stage-width: 80%;
   &__column-cell {
     display: inline-block;
 
+    @include tablet-v {
+      flex-basis: auto !important;
+    }
+
     &.status {
       text-align: $sbs-table-status-text-align;
       font-size: 26px;

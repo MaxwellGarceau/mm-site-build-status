@@ -204,17 +204,17 @@ class MM_Site_Build_Status_General_Settings {
     // Coded so that the $progress_states array can be dynamically generated and users can define their own progress states
     $progress_states = [
       [
+        'value' => 'not-started',
+        'name' => __( 'Not Started', MM_SITE_BUILD_STATUS_TEXT )
+      ],
+      [
         'value' => 'in-progress',
         'name' => __( 'In Progress', MM_SITE_BUILD_STATUS_TEXT )
       ],
       [
         'value' => 'completed',
         'name' => __( 'Completed', MM_SITE_BUILD_STATUS_TEXT )
-      ],
-      [
-        'value' => 'not-started',
-        'name' => __( 'Not Started', MM_SITE_BUILD_STATUS_TEXT )
-      ],
+      ]
     ];
 
       $output = '<select name="' . $this->define_site_build_stages . '[' . $key . '][progress]" value="' . $option . '" selected="in-progress">';

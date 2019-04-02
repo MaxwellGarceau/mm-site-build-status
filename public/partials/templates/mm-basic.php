@@ -71,7 +71,7 @@ $client_logo = wp_get_attachment_url( $client_logo_id );
               echo '<div class="sbs-table__column-cell status" style="flex: 0 1 ' . $column_title_arr[0]['column_width'] . '">' . determine_status_icon( $site_build_stage['progress'] ) . '</div>';
 
               if ( !empty( $site_build_stage['link'] ) ) {
-                echo '<a href="' . $site_build_stage['link'] . '">';
+                echo '<a target="_blank" href="' . $site_build_stage['link'] . '">';
               }
 
                 echo '<div class="sbs-table__column-cell stage" style="flex: 0 1 ' . $column_title_arr[1]['column_width'] . '">' . $site_build_stage['name'] . '</div>';
