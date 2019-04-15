@@ -61,6 +61,17 @@ if ( ! defined( 'WPINC' ) ) {
  allmetatags_constants( 'SETTINGS', 'allmetatags' );
 
 /**
+ * Handles updates
+ */
+
+require_once plugin_dir_path( __FILE__ ) . 'includes/plugin-update-checker-4.5.1/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+  'https://redearthdesign.com/wp-update-server/?action=get_metadata&slug=' . MM_SITE_BUILD_STATUS_TEXT,
+  __FILE__, //Full path to the main plugin file or functions.php.
+  MM_SITE_BUILD_STATUS_TEXT
+);
+
+/**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-mm-site-build-status-activator.php
  */
