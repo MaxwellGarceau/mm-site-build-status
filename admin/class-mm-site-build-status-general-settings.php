@@ -80,7 +80,7 @@ class MM_Site_Build_Status_General_Settings {
   public function mm_client_logo() {
     $image_id = get_option( $this->client_logo );
     $default_image_slug = 'default-client-logo.png';
-    $preview_image_dimensions = array( '150px', '150px' );
+    $preview_image_dimensions = 'medium';
 
     if ( intval( $image_id ) > 0 ) { // Loads image if option is selected
       $image = $this->mm_get_preview_image( $image_id, $preview_image_dimensions );
@@ -260,7 +260,7 @@ class MM_Site_Build_Status_General_Settings {
   public function mm_background_image() {
     $image_id = get_option( $this->background_image );
     $default_image_slug = 'stock-image-1.jpg';
-    $preview_image_dimensions = array( '200px', '300px' );
+    $preview_image_dimensions = 'medium';
 
     if ( intval( $image_id ) > 0 ) { // Loads image if option is selected
       $image = $this->mm_get_preview_image( $image_id, $preview_image_dimensions );
@@ -309,7 +309,7 @@ class MM_Site_Build_Status_General_Settings {
     return '<img class="mm-preview-image" width="' . $dimension_arr[0] . '" height="' . $dimension_arr[1] . '" src="' . plugin_dir_url( __FILE__ ) . 'images/' . $slug . '" />';
   }
 
-  public function mm_get_preview_image( $image_id, $size_arr = array( '200px', '300px' ) ) {
+  public function mm_get_preview_image( $image_id, $size_arr = 'medium' ) {
     return wp_get_attachment_image( $image_id, $size_arr, false, array( 'class' => 'mm-preview-image', 'alt' => 'Logo' ) );
   }
 

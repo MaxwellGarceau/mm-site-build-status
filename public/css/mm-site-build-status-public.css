@@ -76,7 +76,7 @@ a:hover, a:active {
 .client-logo {
   margin: auto;
   display: block;
-  width: 100px;
+  width: auto;
   height: 100px;
 }
 .page-title-heading {
