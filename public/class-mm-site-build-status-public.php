@@ -89,14 +89,6 @@ class MM_Site_Build_Status_Public {
 			 wp_enqueue_style( $style['handle'], $style['src'], $style['deps'], $this->version, $style['in_footer'] );
 		 }
 
-		// // Font Awesome
-		// wp_enqueue_style( 'font-awesome', 'https://use.fontawesome.com/releases/v5.6.3/css/all.css', array(), $this->version, 'all' );
-		//
-		// // Google Fonts
-		// wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Montserrat', array(), $this->version, 'all' );
-		//
-		// wp_enqueue_style( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'css/mm-site-build-status-public.css', array(), $this->version, 'all' );
-
 	}
 
 	/**
