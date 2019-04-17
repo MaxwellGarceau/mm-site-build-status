@@ -89,7 +89,7 @@ $client_logo = wp_get_attachment_url( $client_logo_id );
 
     </div>
 
-    <?php if ( !empty( $current_live_site ) ) { ?>
+    <?php if ( is_valid_url( $current_live_site ) ) { ?>
 
       <!-- Link to previous or temporary website -->
       <a class="current-live-site-url" target="_blank" href="<?php echo $current_live_site; ?>"><?php _e( 'Click here to visit the current website', MM_SITE_BUILD_STATUS_TEXT ) ?></a>

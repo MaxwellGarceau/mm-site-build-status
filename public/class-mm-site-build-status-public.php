@@ -75,6 +75,7 @@ class MM_Site_Build_Status_Public {
 		 * class.
 		 */
 
+		 // Styles array located in /includes/static-values.php
 		 $styles = get_maintenance_mode_styles();
 
 		 foreach ( $styles as $style ) {

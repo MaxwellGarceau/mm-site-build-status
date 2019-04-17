@@ -241,10 +241,12 @@ class MM_Site_Build_Status_General_Settings {
   }
 
   public function mm_current_live_site_validation( $current_live_site ) {
-    $regex = '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/';
+    if ( $current_live_site == '' ) {
+      return $current_live_site;
+    }
 
     // Return an error message if not a valid URL and input was not empty
-    if ( !preg_match( $regex, $current_live_site ) && !empty( $current_live_site ) ) {
+    if ( !is_valid_url( $current_live_site ) && !empty( $current_live_site ) ) {
       add_settings_error( 'Current Live Site', $this->current_live_site, 'Please enter a valid URL');
       return false;
     } else {

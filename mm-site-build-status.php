@@ -16,7 +16,7 @@
  * Plugin Name:       Maintenance Mode with Site Build Status
  * Plugin URI:        http://live-maintenance-mode-with-site-build-status.pantheonsite.io/
  * Description:       Displays a maintenance mode page for website development with additional site build progress information for your clients.
- * Version:           1.0.0
+ * Version:           1.0.2
  * Author:            Red Earth Design
  * Author URI:        https://redearthdesign.com/
  * License:           GPL-2.0+
