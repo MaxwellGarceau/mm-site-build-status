@@ -3,17 +3,26 @@
  * included in this file.
  */
 
-// Base
+// Settings
 @import './base/settings';
 @import './base/media-queries';
 @import './base/functions';
 @import './base/mixins';
-@import './base/base';
 
-// Components
-@import './components/layout';
-@import './components/modal';
-@import './components/images';
-@import './components/headings';
-@import './components/tables';
-@import './components/misc';
+// Enclosed with body class so CSS only effects plugin page
+body.mm-site-build-status {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  margin: 0;
+
+  // Base
+  @import './base/base';
+
+  // Components
+  @import './components/layout';
+  @import './components/modal';
+  @import './components/images';
+  @import './components/headings';
+  @import './components/tables';
+  @import './components/misc';
+}

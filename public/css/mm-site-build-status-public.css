@@ -12,83 +12,83 @@
 /* Screen Reader Mixins */
 /* Source: https://github.com/engageinteractive/core/blob/master/src/scss/utility/_mixins.scss */
 /* Utility Mixins */
-body {
+body.mm-site-build-status {
   font-family: 'Montserrat', sans-serif;
   font-size: 24px;
   margin: 0;
 }
-h1 {
+body.mm-site-build-status h1 {
   font-size: 36px;
   font-family: 'Montserrat', sans-serif;
 }
-h1.page-title-heading:before {
+body.mm-site-build-status h1.page-title-heading:before {
   content: unset;
 }
-p, li {
+body.mm-site-build-status p, body.mm-site-build-status li {
   font-size: 24px;
   font-family: 'Montserrat', sans-serif;
 }
-a {
+body.mm-site-build-status a {
   color: #000;
 }
-a:link, a:visited {
+body.mm-site-build-status a:link, body.mm-site-build-status a:visited {
   color: #000;
 }
-a:hover, a:active {
+body.mm-site-build-status a:hover, body.mm-site-build-status a:active {
   color: #010101;
 }
-.fullscreen {
+body.mm-site-build-status .fullscreen {
   height: auto;
   min-height: 100vh;
   width: 100%;
 }
-.flex-center {
+body.mm-site-build-status .flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.main-background-image {
+body.mm-site-build-status .main-background-image {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
-.fullscreen-modal {
+body.mm-site-build-status .fullscreen-modal {
   min-height: 75%;
   width: 75%;
   padding: 25px;
   display: flex;
   justify-content: center;
 }
-.fullscreen-modal-skin {
+body.mm-site-build-status .fullscreen-modal-skin {
   background-color: rgba(235, 235, 235, .85);
 }
-.fullscreen-modal-content-container {
+body.mm-site-build-status .fullscreen-modal-content-container {
   position: relative;
   width: 100%;
   max-width: 700px;
   padding-bottom: 70px;
 }
 @media (max-width: 375px) {
-  .fullscreen-modal-content-container {
+  body.mm-site-build-status .fullscreen-modal-content-container {
     padding-bottom: 90px;
   }
 }
-.client-logo {
+body.mm-site-build-status .client-logo {
   margin: auto;
   display: block;
   width: auto;
   height: 100px;
 }
-.page-title-heading {
+body.mm-site-build-status .page-title-heading {
   padding: 0;
   margin: 35px 0;
   text-align: center;
   font-weight: 200;
 }
-.page-title-heading:before {
+body.mm-site-build-status .page-title-heading:before {
   content: unset;
 }
-.sbs-table {
+body.mm-site-build-status .sbs-table {
   /**************************************************
    * Flex box layout
    ***************************************************/
@@ -96,61 +96,61 @@ a:hover, a:active {
    * END Flex box layout
    ***************************************************/
 }
-.sbs-table__row {
+body.mm-site-build-status .sbs-table__row {
   display: flex;
   align-items: center;
   margin: 10px 0;
 }
 @media (max-width: 766px) {
-  .sbs-table__row {
+  body.mm-site-build-status .sbs-table__row {
     margin-bottom: 50px;
   }
-  .sbs-table__row:last-child {
+  body.mm-site-build-status .sbs-table__row:last-child {
     margin-bottom: 20px;
   }
 }
 @media (max-width: 766px) {
-  .sbs-table__column-title-container {
+  body.mm-site-build-status .sbs-table__column-title-container {
     display: none;
   }
 }
-.sbs-table__column-title {
+body.mm-site-build-status .sbs-table__column-title {
   display: inline-block;
   margin-bottom: 10px;
 }
-.sbs-table__column-title.status {
+body.mm-site-build-status .sbs-table__column-title.status {
   text-align: center;
 }
-.sbs-table__column-title * {
+body.mm-site-build-status .sbs-table__column-title * {
   margin: 0;
 }
-.sbs-table__column-title-skin {
+body.mm-site-build-status .sbs-table__column-title-skin {
   border-bottom: solid 1px #000;
   text-transform: uppercase;
   font-weight: 200;
 }
-.sbs-table__column-title-skin h4 {
+body.mm-site-build-status .sbs-table__column-title-skin h4 {
   font-weight: 200;
 }
 @media (max-width: 766px) {
-  .sbs-table__column-cell-container {
+  body.mm-site-build-status .sbs-table__column-cell-container {
     flex-direction: column;
     text-align: center;
   }
 }
-.sbs-table__column-cell {
+body.mm-site-build-status .sbs-table__column-cell {
   display: inline-block;
 }
 @media (max-width: 766px) {
-  .sbs-table__column-cell {
+  body.mm-site-build-status .sbs-table__column-cell {
     flex-basis: auto !important;
   }
 }
-.sbs-table__column-cell.status {
+body.mm-site-build-status .sbs-table__column-cell.status {
   text-align: center;
   font-size: 26px;
 }
-.current-live-site-url {
+body.mm-site-build-status .current-live-site-url {
   position: absolute;
   bottom: 0;
   width: 100%;
