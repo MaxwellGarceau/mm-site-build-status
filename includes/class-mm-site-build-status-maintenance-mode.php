@@ -1,10 +1,8 @@
 <?php
 
-require_once plugin_dir_path( __FILE__ ) . '../public/class-mm-site-build-status-public.php';
-
 class MM_Site_Build_Status_Maintenance_Mode {
 
-  public function is_maintenance_mode() {
+  static function is_maintenance_mode() {
     // Source: https://www.isitwp.com/maintenance-mode-without-plug-in/
     // Source: https://markjaquith.wordpress.com/2014/02/19/template_redirect-is-not-for-loading-templates/
 

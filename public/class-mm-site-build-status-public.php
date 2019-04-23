@@ -75,19 +75,22 @@ class MM_Site_Build_Status_Public {
 		 * class.
 		 */
 
-		 // Styles array located in /includes/static-values.php
-		 $styles = get_maintenance_mode_styles();
+		 if ( MM_Site_Build_Status_Maintenance_Mode::is_maintenance_mode() ) {
 
-		 foreach ( $styles as $style ) {
-			 if ( !array_key_exists( 'deps', $style ) ) {
-				 $style['deps'] = array();
-			 }
-			 if ( !array_key_exists( 'in_footer', $style ) ) {
-				 $style['in_footer'] = 'all';
-			 }
+			 // Styles array located in /includes/static-values.php
+			 $styles = get_maintenance_mode_styles();
 
-			 wp_enqueue_style( $style['handle'], $style['src'], $style['deps'], $this->version, $style['in_footer'] );
-		 }
+			 foreach ( $styles as $style ) {
+				 if ( !array_key_exists( 'deps', $style ) ) {
+					 $style['deps'] = array();
+				 }
+				 if ( !array_key_exists( 'in_footer', $style ) ) {
+					 $style['in_footer'] = 'all';
+				 }
+
+				 wp_enqueue_style( $style['handle'], $style['src'], $style['deps'], $this->version, $style['in_footer'] );
+			 }
+	 	}
 
 	}
 
@@ -110,21 +113,19 @@ class MM_Site_Build_Status_Public {
 		 * class.
 		 */
 
-		wp_register_script( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'js/mm-site-build-status-public.js', array( 'jquery' ), $this->version, false );
+		 if ( MM_Site_Build_Status_Maintenance_Mode::is_maintenance_mode() ) {
+			wp_register_script( $this->mm_site_build_status, plugin_dir_url( __FILE__ ) . 'js/mm-site-build-status-public.js', array( 'jquery' ), $this->version, false );
 
-		 // Create an instance of MM_Site_Build_Status_General_Settings
- 		$mm_site_build_status_general_settings = new MM_Site_Build_Status_General_Settings;
+				// Create an instance of MM_Site_Build_Status_General_Settings
+			$mm_site_build_status_general_settings = new MM_Site_Build_Status_General_Settings;
 
- 		// Localize setting names for frontend
- 		$general_settings_class_vars = get_class_vars( get_class( $mm_site_build_status_general_settings ) );
-    wp_localize_script( $this->mm_site_build_status, 'site_build_stage_names', $general_settings_class_vars );
+			// Localize setting names for frontend
+			$general_settings_class_vars = get_class_vars( get_class( $mm_site_build_status_general_settings ) );
+			wp_localize_script( $this->mm_site_build_status, 'site_build_stage_names', $general_settings_class_vars );
 
-		wp_enqueue_script( $this->mm_site_build_status );
+			wp_enqueue_script( $this->mm_site_build_status );
+		}
 
-	}
-
-	public function deregister_theme_css() {
-		wp_deregister_style( 'twentyseventeen-style' );
 	}
 
 	public function load_custom_includes() {
