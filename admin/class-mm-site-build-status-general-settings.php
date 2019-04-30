@@ -2,13 +2,42 @@
 
 class MM_Site_Build_Status_General_Settings {
 
-  // Class Variables
+  /**
+   * Class Variables
+   * NOTE: Variables must be declared here to be accessible in the public view
+   * and in JavaScript
+   */
   var $define_site_build_stages = 'define_site_build_stages';
   var $on_off = 'on_off';
   var $current_live_site = 'current_live_site';
   var $client_name = 'client_name';
   var $client_logo = 'client_logo';
   var $background_image = 'background_image';
+
+  // Coded so that the $progress_states array can be dynamically generated and users
+  // can define their own progress states
+  var $progress_states = [
+    [
+      'value' => 'not-started',
+      'name' => 'Not Started',
+      'tooltip' => 'This stage has not been started.'
+    ],
+    [
+      'value' => 'in-progress',
+      'name' => 'In Progress',
+      'tooltip' => 'This stage is in progress.'
+    ],
+    [
+      'value' => 'completed',
+      'name' => 'Completed',
+      'tooltip' => 'This stage has been completed.'
+    ],
+    [
+      'value' => 'waiting-on-client',
+      'name' => 'Waiting On Client',
+      'tooltip' => 'We are waiting on something from the client before we start this stage.'
+    ]
+  ];
 
   public function __construct() {
 
@@ -202,20 +231,7 @@ class MM_Site_Build_Status_General_Settings {
   public function mm_define_site_build_progress( $option = 'pending', $key = '' ) {
 
     // Coded so that the $progress_states array can be dynamically generated and users can define their own progress states
-    $progress_states = [
-      [
-        'value' => 'not-started',
-        'name' => __( 'Not Started', MM_SITE_BUILD_STATUS_TEXT )
-      ],
-      [
-        'value' => 'in-progress',
-        'name' => __( 'In Progress', MM_SITE_BUILD_STATUS_TEXT )
-      ],
-      [
-        'value' => 'completed',
-        'name' => __( 'Completed', MM_SITE_BUILD_STATUS_TEXT )
-      ]
-    ];
+    $progress_states = $this->progress_states;
 
       $output = '<select name="' . $this->define_site_build_stages . '[' . $key . '][progress]" value="' . $option . '" selected="in-progress">';
 

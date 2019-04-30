@@ -7,6 +7,7 @@
  */
 
 $client_name = get_option( $general_settings_class_vars['client_name'] );
+// var_dump($general_settings_class_vars);
 $client_name_output = $client_name ? __( 'Site Build Status for ', MM_SITE_BUILD_STATUS_TEXT ) . $client_name : __( 'Site Build Status', MM_SITE_BUILD_STATUS_TEXT );
 $client_logo_id = get_option( $general_settings_class_vars['client_logo'] );
 $client_logo = wp_get_attachment_url( $client_logo_id );
@@ -67,8 +68,10 @@ $client_logo = wp_get_attachment_url( $client_logo_id );
 
           // Table content row generator. Generates with information from site_build_stages
           foreach( $site_build_stages as $site_build_stage ) {
+            $status_icon = determine_status_icon( $site_build_stage['progress'], $general_settings_class_vars['progress_states'] );
+
             echo '<div class="sbs-table__column-cell-container sbs-table__row">';
-              echo '<div class="sbs-table__column-cell status" style="flex: 0 1 ' . $column_title_arr[0]['column_width'] . '">' . determine_status_icon( $site_build_stage['progress'] ) . '</div>';
+              echo '<div class="sbs-table__column-cell status" style="flex: 0 1 ' . $column_title_arr[0]['column_width'] . '">' . assign_status_icon( $status_icon ) . '</div>';
 
               if ( !empty( $site_build_stage['link'] ) ) {
                 echo '<a target="_blank" href="' . $site_build_stage['link'] . '">';

@@ -157,4 +157,36 @@ body.mm-site-build-status .current-live-site-url {
   text-align: center;
   display: block;
 }
+body.mm-site-build-status .tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+body.mm-site-build-status .tooltip__text {
+  visibility: hidden;
+  min-width: 180px;
+  width: auto;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+  /* Position the tooltip */
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  z-index: 1;
+  font-size: 14px;
+}
+@media (max-width: 500px) {
+  body.mm-site-build-status .tooltip__text {
+    min-width: 100px;
+  }
+}
+body.mm-site-build-status .tooltip:hover, body.mm-site-build-status .tooltip:focus {
+  cursor: pointer;
+}
+body.mm-site-build-status .tooltip:hover .tooltip__text, body.mm-site-build-status .tooltip:focus .tooltip__text {
+  visibility: visible;
+}
 /*# sourceMappingURL=mm-site-build-status-public.css.map */
