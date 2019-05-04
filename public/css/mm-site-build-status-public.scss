@@ -14,6 +14,8 @@ body.mm-site-build-status {
   font-family: 'Montserrat', sans-serif;
   font-size: 24px;
   margin: 0;
+  background-size: cover;
+  background-position: center;
 
   // Base
   @import './base/base';

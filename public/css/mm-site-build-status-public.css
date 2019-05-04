@@ -16,6 +16,8 @@ body.mm-site-build-status {
   font-family: 'Montserrat', sans-serif;
   font-size: 24px;
   margin: 0;
+  background-size: cover;
+  background-position: center;
 }
 body.mm-site-build-status h1 {
   font-size: 36px;
@@ -160,7 +162,6 @@ body.mm-site-build-status .current-live-site-url {
 body.mm-site-build-status .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black;
 }
 body.mm-site-build-status .tooltip__text {
   visibility: hidden;
@@ -168,7 +169,7 @@ body.mm-site-build-status .tooltip__text {
   width: auto;
   background-color: black;
   color: #fff;
-  text-align: center;
+  text-align: left;
   border-radius: 6px;
   padding: 10px;
   /* Position the tooltip */

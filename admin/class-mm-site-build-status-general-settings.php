@@ -16,28 +16,28 @@ class MM_Site_Build_Status_General_Settings {
 
   // Coded so that the $progress_states array can be dynamically generated and users
   // can define their own progress states
-  var $progress_states = [
-    [
+  var $progress_states = array(
+    array(
       'value' => 'not-started',
       'name' => 'Not Started',
       'tooltip' => 'This stage has not been started.'
-    ],
-    [
+    ),
+    array(
       'value' => 'in-progress',
       'name' => 'In Progress',
       'tooltip' => 'This stage is in progress.'
-    ],
-    [
+    ),
+    array(
       'value' => 'completed',
       'name' => 'Completed',
       'tooltip' => 'This stage has been completed.'
-    ],
-    [
+    ),
+    array(
       'value' => 'waiting-on-client',
       'name' => 'Waiting On Client',
       'tooltip' => 'We are waiting on something from the client before we start this stage.'
-    ]
-  ];
+    )
+  );
 
   public function __construct() {
 
