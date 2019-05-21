@@ -42,7 +42,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 
  // Source: https://mycyberuniverse.com/using-constants-wordpress-plugin.html
- $plugin_data = get_file_data( __FILE__, array( 'name'=>'Plugin Name', 'version'=>'Version', 'text'=>'Text Domain' ) );
+ $plugin_data = get_file_data( __FILE__, array( 'name'=> 'Plugin Name', 'version'=> 'Version', 'text'=> 'Text Domain' ) );
  function allmetatags_constants( $constant_name, $value ) {
      $constant_name_prefix = 'MM_SITE_BUILD_STATUS_';
      $constant_name = $constant_name_prefix . $constant_name;
@@ -59,17 +59,6 @@ if ( ! defined( 'WPINC' ) ) {
  allmetatags_constants( 'TEXT', $plugin_data['text'] );
  allmetatags_constants( 'PREFIX', 'allmetatags' );
  allmetatags_constants( 'SETTINGS', 'allmetatags' );
-
-/**
- * Handles updates
- */
-
-require_once plugin_dir_path( __FILE__ ) . 'includes/plugin-update-checker-4.5.1/plugin-update-checker.php';
-$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-  'https://redearthdesign.com/wp-update-server/?action=get_metadata&slug=' . MM_SITE_BUILD_STATUS_TEXT,
-  __FILE__, //Full path to the main plugin file or functions.php.
-  MM_SITE_BUILD_STATUS_TEXT
-);
 
 /**
  * The code that runs during plugin activation.
