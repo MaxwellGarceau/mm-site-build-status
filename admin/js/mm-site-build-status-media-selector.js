@@ -65,7 +65,6 @@
           var ids = gallery_ids.join(",");
           hiddenInput.val(ids);
 					var mmPreviewImageNonce = admin_nonces.mm_preview_image_nonce;
-					console.log(mmPreviewImageNonce);
           Refresh_Image(ids, previewImage, previewImageSize, mmPreviewImageNonce);
         });
 
@@ -97,11 +96,43 @@
      };
 
      $.get(ajaxurl, data, function(response) {
+			 var errorMessageSelector = 'media-id-' + the_id + '-preview-image-error';
+			 var errorMessageText = 'You do not have permission to do that.';
+			 var redErrorMessage = new RedErrorMessage(errorMessageText, errorMessageSelector);
 
        if (response.success === true) {
+				 redErrorMessage.removeErrorMessage();
          previewImage.replaceWith( response.data.image );
-       }
+       } else {
+				 var precedingElement = previewImage.siblings('.mm_media_manager');
+				 redErrorMessage.displayErrorMessage(precedingElement);
+			 }
      });
    }
+
+	 // Put in another file later
+	 function RedErrorMessage(errorMessageText, errorMessageSelector) {
+		 // Variables
+		 this.errorMessageText = errorMessageText;
+		 this.errorMessageSelector = errorMessageSelector;
+
+		 // Methods
+		 this.getErrorMessage = function() {
+			 return '<p id="' + errorMessageSelector + '" class="admin-footnote bold">' + errorMessageText + '</p>';
+		 },
+		 this.getErrorMessageElement = function() {
+			 return $('#' + errorMessageSelector);
+		 },
+		 this.displayErrorMessage = function(precedingElement) {
+			 var errorMessage = this.getErrorMessage();
+			 return precedingElement.after(errorMessage);
+		 },
+		 this.removeErrorMessage = function() {
+			 var errorMessage = this.getErrorMessageElement();
+			 if (errorMessage.length > 0) {
+				 errorMessage.remove();
+			 }
+		 }
+	 }
 
 })( jQuery );

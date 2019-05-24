@@ -338,7 +338,7 @@ class MM_Site_Build_Status_General_Settings {
     // Checks nonce, issues error if fails
     $this->check_nonce( $this->get_mm_preview_image_nonce() );
 
-    if( isset( $_GET['id'] ) ) {
+    if( isset( $_GET['id'] ) && current_user_can( 'activate_plugins' ) ) {
       $size = sanitize_text_field( $_GET['size'] );
 
       $image = wp_get_attachment_image( filter_input( INPUT_GET, 'id', FILTER_VALIDATE_INT ), $size, false, array( 'class' => 'mm-preview-image' ) );
