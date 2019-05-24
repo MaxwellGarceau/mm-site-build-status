@@ -13,6 +13,8 @@ class MM_Site_Build_Status_General_Settings {
   var $client_name = 'client_name';
   var $client_logo = 'client_logo';
   var $background_image = 'background_image';
+  var $admin_nonce_key = '_ajax_nonce';
+  var $mm_preview_image_nonce = 'mm_preview_image_nonce';
 
   // Coded so that the $progress_states array can be dynamically generated and users
   // can define their own progress states
@@ -41,6 +43,36 @@ class MM_Site_Build_Status_General_Settings {
 
   public function __construct() {
 
+  }
+
+  /*--------------------------------------------------------------
+  ## Getter Functions
+  --------------------------------------------------------------*/
+
+  public function get_mm_preview_image_nonce() {
+    return $this->mm_preview_image_nonce;
+  }
+
+  public function get_admin_nonce_key() {
+    return $this->admin_nonce_key;
+  }
+
+  /*--------------------------------------------------------------
+  ## Helper Functions
+  --------------------------------------------------------------*/
+
+  public function create_mm_preview_image_nonce() {
+    return wp_create_nonce( $this->mm_preview_image_nonce );
+  }
+
+  public function check_nonce( $nonce, $nonce_key = null ) {
+    if ( $nonce_key === null ) {
+      $nonce_key = $this->get_admin_nonce_key();
+    }
+    if ( !check_ajax_referer( $nonce, $nonce_key ) ) {
+      wp_send_json_error( 'Invalid security token sent.' );
+      wp_die( 'Invalid nonce token used.' );
+    }
   }
 
   /*--------------------------------------------------------------
@@ -303,10 +335,15 @@ class MM_Site_Build_Status_General_Settings {
 
   // Ajax action to refresh the user image
   public function mm_get_image() {
+    // Checks nonce, issues error if fails
+    $this->check_nonce( $this->get_mm_preview_image_nonce() );
+
     if( isset( $_GET['id'] ) ) {
-      $image = wp_get_attachment_image( filter_input( INPUT_GET, 'id', FILTER_VALIDATE_INT ), $_GET['size'], false, array( 'class' => 'mm-preview-image' ) );
+      $size = sanitize_text_field( $_GET['size'] );
+
+      $image = wp_get_attachment_image( filter_input( INPUT_GET, 'id', FILTER_VALIDATE_INT ), $size, false, array( 'class' => 'mm-preview-image' ) );
       $data = array(
-        'image'    => $image,
+        'image'    => $image
       );
       wp_send_json_success( $data );
     } else {

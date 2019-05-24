@@ -64,7 +64,9 @@
           });
           var ids = gallery_ids.join(",");
           hiddenInput.val(ids);
-          Refresh_Image(ids, previewImage, previewImageSize);
+					var mmPreviewImageNonce = admin_nonces.mm_preview_image_nonce;
+					console.log(mmPreviewImageNonce);
+          Refresh_Image(ids, previewImage, previewImageSize, mmPreviewImageNonce);
         });
 
         image_frame.on('open', function() {
@@ -86,11 +88,12 @@
    });
 
    // Ajax request to refresh the image preview
-   function Refresh_Image(the_id, previewImage, previewImageSize) {
+   function Refresh_Image(the_id, previewImage, previewImageSize, nonce) {
      var data = {
        action: 'mm_get_image',
        id: the_id,
-			 size: previewImageSize
+			 size: previewImageSize,
+			 [admin_nonces.admin_nonce_key]: nonce
      };
 
      $.get(ajaxurl, data, function(response) {

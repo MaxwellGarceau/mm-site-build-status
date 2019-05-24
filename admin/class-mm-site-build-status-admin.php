@@ -120,6 +120,13 @@ class MM_Site_Build_Status_Admin {
 		// Localize setting names for admin interface
 		$general_settings_class_vars = get_class_vars( get_class( $mm_site_build_status_general_settings ) );
     wp_localize_script( $this->mm_site_build_status, 'site_build_stage_names', $general_settings_class_vars );
+
+		// Ajax Nonce: https://developer.wordpress.org/plugins/javascript/ajax/#nonce
+		$admin_nonces = array(
+			'admin_nonce_key' => $mm_site_build_status_general_settings->get_admin_nonce_key(),
+			'mm_preview_image_nonce' => $mm_site_build_status_general_settings->create_mm_preview_image_nonce(),
+		);
+		wp_localize_script( $this->mm_site_build_status, 'admin_nonces', $admin_nonces );
 	}
 
 	// Source: https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
