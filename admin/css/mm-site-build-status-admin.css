@@ -59,6 +59,9 @@ input[type="text"] {
 .mm-site-build-form .submit {
   padding: 0;
 }
+img.mm-preview-image {
+  max-width: 300px;
+}
 img.mm-preview-image[src=""] {
   display: none;
 }
