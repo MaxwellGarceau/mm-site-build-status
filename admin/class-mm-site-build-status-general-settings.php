@@ -15,6 +15,7 @@ class MM_Site_Build_Status_General_Settings {
   var $background_image = 'background_image';
   var $admin_nonce_key = '_ajax_nonce';
   var $mm_preview_image_nonce = 'mm_preview_image_nonce';
+  var $default_background_image = 'stock-image-1.jpg';
 
   // Coded so that the $progress_states array can be dynamically generated and users
   // can define their own progress states
@@ -309,7 +310,7 @@ class MM_Site_Build_Status_General_Settings {
   // Source: https://wordpress.stackexchange.com/questions/235406/how-do-i-select-an-image-from-media-library-in-my-plugin
   public function mm_background_image() {
     $image_id = get_option( $this->background_image );
-    $default_image_slug = 'stock-image-1.jpg';
+    $default_image_slug = $this->default_background_image;
     $preview_image_dimensions = 'medium';
 
     if ( intval( $image_id ) > 0 ) { // Loads image if option is selected
