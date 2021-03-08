@@ -75,6 +75,11 @@ body.mm-site-build-status .fullscreen-modal {
   display: flex;
   justify-content: center;
 }
+@media (max-width: 766px) {
+  body.mm-site-build-status .fullscreen-modal {
+    width: 100%;
+  }
+}
 body.mm-site-build-status .fullscreen-modal-skin {
   background-color: rgba(235, 235, 235, .85);
 }

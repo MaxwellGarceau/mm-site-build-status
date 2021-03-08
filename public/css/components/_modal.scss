@@ -5,6 +5,10 @@
   display: flex;
   justify-content: center;
 
+  @include tablet-v() {
+    width: 100%;
+  }
+
   &-skin {
     background-color: rgba($full-screen-modal, .85);
   }
