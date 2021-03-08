@@ -18,23 +18,13 @@
 
 <?php include_once 'template-parts/header.php'; ?>
 
-<div id="primary" class="content-area">
-  <main id="main" class="site-main" role="main">
-    <div class="grid-container no-padding">
+  <div class="fullscreen flex-center">
 
-        <div class="grid-100 tablet-grid-100 grid-parent">
-          <div class="main-page-block fullscreen flex-center">
+  <?php
+    //  locate_template( './templates/mm-basic', true );
+    include_once 'templates/mm-basic.php';
+  ?>
 
-          <?php
-            //  locate_template( './templates/mm-basic', true );
-            include_once 'templates/mm-basic.php';
-          ?>
-
-          </div> <!-- main-page-block -->
-        </div>
-
-    </div> <!-- grid-container -->
-  </main><!-- #main -->
-</div><!-- #primary -->
+  </div>
 
 <?php include_once 'template-parts/footer.php'; ?>

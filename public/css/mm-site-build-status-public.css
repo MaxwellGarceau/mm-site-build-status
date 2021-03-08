@@ -12,6 +12,19 @@
 /* Screen Reader Mixins */
 /* Source: https://github.com/engageinteractive/core/blob/master/src/scss/utility/_mixins.scss */
 /* Utility Mixins */
+html.mm-site-build-status-html, body.mm-site-build-status {
+  height: auto;
+}
+html.mm-site-build-status-html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
 body.mm-site-build-status {
   font-family: 'Montserrat', sans-serif;
   font-size: 24px;
@@ -43,6 +56,7 @@ body.mm-site-build-status .fullscreen {
   height: auto;
   min-height: 100vh;
   width: 100%;
+  padding: 20px;
 }
 body.mm-site-build-status .flex-center {
   display: flex;
@@ -57,7 +71,7 @@ body.mm-site-build-status .main-background-image {
 body.mm-site-build-status .fullscreen-modal {
   min-height: 75%;
   width: 75%;
-  padding: 25px;
+  padding: 20px;
   display: flex;
   justify-content: center;
 }

@@ -1,4 +1,4 @@
-<html>
+<html class="mm-site-build-status-html">
 <head>
   <?php do_action( 'wp_head' ); ?>
   <meta name="viewport" content="width=device-width, initial-scale=1">
