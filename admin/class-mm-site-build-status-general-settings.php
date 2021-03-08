@@ -228,8 +228,8 @@ class MM_Site_Build_Status_General_Settings {
 
         // Return an error message if not a valid URL and input was not empty
         if ( !preg_match( $regex, $site_build_stage['link'] ) ) {
+          add_settings_error( 'Site Build Stage Link', $this->define_site_build_stages, '"' . $site_build_stage['link'] . '" is not a valid url. Please check for any typos.' );
           $site_build_stage['link'] = '';
-          add_settings_error( 'Site Build Stage Link', $this->define_site_build_stages, 'Please enter a valid URL');
         } else {
           $site_build_stage['link'] = wp_strip_all_tags( add_scheme( $site_build_stage['link'] ) );
         }

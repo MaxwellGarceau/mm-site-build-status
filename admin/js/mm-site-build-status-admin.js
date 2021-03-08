@@ -57,7 +57,7 @@
 
 			// Input validation
 			var lastInput = $( '.site-build-stage__name' ).last();
-			var lastInputHasValue = lastInput.attr('value').length <= 0;
+			var lastInputHasValue = lastInput.val().length <= 0;
 			var siteBuildNameError = $( '.red-error-message.site-build-stage__name--error' );
 
 			if ( lastInputHasValue ) {
