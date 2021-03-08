@@ -3,7 +3,7 @@ Version: 1.0.9
 Donate link: https://redearthdesign.com/
 Tags: admin, administration, coming soon, maintenance mode, unavailable
 Requires at least: 4.0 or higher
-Tested up to: 5.6.2
+Tested up to: 5.7
 PHP Version: 5.6 or higher
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
